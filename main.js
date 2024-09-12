@@ -25,29 +25,26 @@ function drawBall() {
     ctx.closePath();
     console.log(x, y);
     
-    if (x < canvas.width && x > 0 && y < canvas.height && y > 0){
-        if (rightPressed) {
+    if (x < canvas.width -10){
+      if (rightPressed) {
           x += 1
         }
+    }
+    if (x > 10){
       if (leftPressed) {
           x -= 1
         }
+    }
+    if ( y > 10){
       if (upPressed){
           y -= 1
       }
+    }
+    if (y < canvas.height - 10){
       if (downPressed){
           y += 1
       }
-    }
-    
-    
-    //if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-    //    dx = -dx;
-    //  }
-    //  if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
-    //    dy = -dy;
-    //  }
-      
+    } 
   }
   
   function draw() {
