@@ -16,16 +16,45 @@ let leftPressed = false;
 let upPressed = false
 let downPressed = false
 
+let mouseX = 0;
+let mouseY = 0;
 
 function drawBall() {
+    // Calculate angle to rotate the rectangle
+    const angle = Math.atan2(mouseY - y, mouseX - x);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the ball
     ctx.beginPath();
     ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
+
+    // Save the context's current state before applying rotation
+    ctx.save();
+
+    // Move the origin of the canvas to the center of the rectangle (center of the ball)
+    ctx.translate(x, y);
+
+    // Rotate the canvas to align the rectangle with the cursor
+    ctx.rotate(angle);
+
+    // Draw the rectangle, now rotated
+    ctx.beginPath();
+    ctx.rect(-ballRadius / 2, -ballRadius / 2, 10, 30);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+
+    // Restore the canvas to its original state (no rotation)
+    ctx.restore();
+
     console.log(x, y);
-    
-    if (x < canvas.width -10){
+
+    // Move the ball within canvas bounds
+    if (x < canvas.width - 10){
       if (rightPressed) {
           x += 1
         }
@@ -45,21 +74,14 @@ function drawBall() {
           y += 1
       }
     } 
-  }
-  
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
-    // x += dx;
-    // y += dy;
+}
 
-    
-    
 
-  }
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-  
+document.addEventListener("mousemove", mouseMoveHandler, false)
+
 function keyDownHandler(e) {
     if (e.key === "d" || e.key === "ArrowRight") {
       rightPressed = true;
@@ -73,9 +95,9 @@ function keyDownHandler(e) {
     if (e.key === "s" || e.key === "ArrowDown"){
         downPressed = true
     }
-  }
+}
   
-  function keyUpHandler(e) {
+function keyUpHandler(e) {
     if (e.key === "d" || e.key === "ArrowRight") {
       rightPressed = false;
     } 
@@ -88,10 +110,16 @@ function keyDownHandler(e) {
     if (e.key === "s" || e.key === "ArrowDown"){
         downPressed = false
     }
-    
-  }
-  
+}
 
+function mouseMoveHandler(e) {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+}
+function draw() {
+    drawBall();
+}
 function startgame(){
     setInterval(draw, 10)
 }
