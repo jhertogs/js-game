@@ -22,7 +22,9 @@ let mouseY = 0;
 function drawBall() {
     // Calculate angle to rotate the rectangle
     const angle = Math.atan2(mouseY - y, mouseX - x);
-    console.log(mouseX, mouseY);
+    //console.log(mouseX, x, mouseY, y);
+    console.log(angle);
+    
     
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -41,7 +43,7 @@ function drawBall() {
     ctx.translate(x, y);
 
     // Rotate the canvas to align the rectangle with the cursor
-    ctx.rotate(angle);
+    ctx.rotate(angle - Math.PI / 2);
 
     // Draw the rectangle, now rotated
     ctx.beginPath();
@@ -52,6 +54,7 @@ function drawBall() {
 
     // Restore the canvas to its original state (no rotation)
     ctx.restore();
+
 
 
     // Move the ball within canvas bounds
