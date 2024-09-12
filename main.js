@@ -55,7 +55,7 @@ function drawBall() {
 
 
     // Move the ball within canvas bounds
-    if (x < canvas.width - 10){
+    if (x < canvas.width - ballRadius){
       if (rightPressed) {
           x += 1
         }
@@ -70,7 +70,7 @@ function drawBall() {
           y -= 1
       }
     }
-    if (y < canvas.height - 10){
+    if (y < canvas.height - ballRadius){
       if (downPressed){
           y += 1
       }
@@ -81,6 +81,8 @@ function drawBall() {
     }
   drawProjectiles()
   mousedown = false
+
+  
 }
 
 let projectiles = [];
@@ -111,7 +113,7 @@ function drawProjectiles() {
         // Draw the projectile
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#0095DD";
+        ctx.fillStyle = "#FF0000";
         ctx.fill();
         ctx.closePath();
 
@@ -123,12 +125,45 @@ function drawProjectiles() {
     }
 }
 
+let enemies = []
+
+let num = 0;
+
+function makeEnemies() {
+    num += 1;
+    if (num > 100) {
+        let randx = Math.random() * canvas.width;
+        let randy = Math.random() * canvas.height;
+        console.log(randx, randy);
+        enemies.push({
+            x: randx,
+            y: randy,
+            width: 10,
+            height: 10
+        });
+        num = 0;  // Reset num after creating an enemy
+    }
+}
+
+function spawnEnemies() {
+    makeEnemies();
+    for (let i = 0; i < enemies.length; i++) {
+        let enemy = enemies[i];
+        ctx.beginPath();
+        ctx.rect(enemy.x, enemy.y, enemy.width, enemy.height);
+        ctx.fillStyle = "#00ff00";
+        ctx.fill();
+        ctx.closePath();
+    }
+}
 
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false)
 document.addEventListener("mousedown", mouseDownHandler, false)
+
+start = 0
 
 function keyDownHandler(e) {
     if (e.key === "d" || e.key === "ArrowRight") {
@@ -138,6 +173,7 @@ function keyDownHandler(e) {
       leftPressed = true;
     }
     if (e.key === "w" || e.key === "ArrowUp"){
+      elapsed = new Date().getTime()
         upPressed = true
     }
     if (e.key === "s" || e.key === "ArrowDown"){
@@ -171,7 +207,8 @@ function mouseDownHandler(){
 
 
 function draw() {
-    drawBall();
+    drawBall()
+    spawnEnemies()
 }
 function startgame(){
     setInterval(draw, 10)
