@@ -7,14 +7,15 @@ console.log(canvas.width, canvas.height);
 
 // widht = 500 height = 350
 
-let dx = 0
-let dy = 0
+let shootx
+let shooty
 const ballRadius = 10
 
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false
 let downPressed = false
+let mousedown = false
 
 let mouseX = 0;
 let mouseY = 0;
@@ -22,10 +23,6 @@ let mouseY = 0;
 function drawBall() {
     // Calculate angle to rotate the rectangle
     const angle = Math.atan2(mouseY - y, mouseX - x);
-    //console.log(mouseX, x, mouseY, y);
-    console.log(angle);
-    
-    
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -78,6 +75,22 @@ function drawBall() {
           y += 1
       }
     } 
+
+    if(mousedown){
+      shoot()
+    }
+}
+
+function shoot() {
+  shootx +=1
+  shooty +=1
+
+  ctx.beginPath()
+  ctx.arc(x + shootx, y + shooty, ballRadius / 2, 0, Math.PI * 2)
+  ctx.fillStyle = "#0095DD";
+  ctx.fill()
+
+  ctx.closePath()
 }
 
 
@@ -85,6 +98,7 @@ function drawBall() {
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false)
+document.addEventListener("mousedown", mouseDownHandler, false)
 
 function keyDownHandler(e) {
     if (e.key === "d" || e.key === "ArrowRight") {
@@ -121,6 +135,11 @@ function mouseMoveHandler(e) {
     mouseX = e.clientX - rect.left;
     mouseY = e.clientY - rect.top;
 }
+function mouseDownHandler(){
+  mousedown = true
+}
+
+
 function draw() {
     drawBall();
 }
