@@ -79,18 +79,48 @@ function drawBall() {
     if(mousedown){
       shoot()
     }
+  drawProjectiles()
+  mousedown = false
 }
 
+let projectiles = [];
+
 function shoot() {
-  shootx +=1
-  shooty +=1
+    // Calculate the direction to shoot
+    let shootAngle = Math.atan2(mouseY - y, mouseX - x);
+    let speed = 5; // Adjust the speed as necessary
 
-  ctx.beginPath()
-  ctx.arc(x + shootx, y + shooty, ballRadius / 2, 0, Math.PI * 2)
-  ctx.fillStyle = "#0095DD";
-  ctx.fill()
+    // Initialize the projectile with position and velocity
+    projectiles.push({
+        x: x,
+        y: y,
+        dx: Math.cos(shootAngle) * speed,
+        dy: Math.sin(shootAngle) * speed,
+        radius: ballRadius / 2
+    });
+}
 
-  ctx.closePath()
+function drawProjectiles() {
+    for (let i = 0; i < projectiles.length; i++) {
+        let p = projectiles[i];
+
+        // Update projectile position
+        p.x += p.dx;
+        p.y += p.dy;
+
+        // Draw the projectile
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+
+        // Remove projectiles that go off-screen
+        if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+            projectiles.splice(i, 1);
+            i--; // Adjust index after removing element
+        }
+    }
 }
 
 
