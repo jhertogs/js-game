@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d")
 
 let x = canvas.width / 2
 let y = canvas.height - 30
-console.log(canvas.width, canvas.height);
+//console.log(canvas.width, canvas.height);
 
 // widht = 500 height = 350
 
@@ -81,6 +81,7 @@ function drawBall() {
     }
   drawProjectiles()
   mousedown = false
+  
 
   
 }
@@ -134,14 +135,14 @@ function makeEnemies() {
     if (num > 100) {
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
-        console.log(randx, randy);
+        //console.log(randx, randy);
         enemies.push({
             x: randx,
             y: randy,
             width: 10,
             height: 10
         });
-        num = 0;  // Reset num after creating an enemy
+        num = 0;
     }
 }
 
@@ -157,13 +158,10 @@ function spawnEnemies() {
     }
 }
 
-
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false)
 document.addEventListener("mousedown", mouseDownHandler, false)
-
-start = 0
 
 function keyDownHandler(e) {
     if (e.key === "d" || e.key === "ArrowRight") {
@@ -173,7 +171,6 @@ function keyDownHandler(e) {
       leftPressed = true;
     }
     if (e.key === "w" || e.key === "ArrowUp"){
-      elapsed = new Date().getTime()
         upPressed = true
     }
     if (e.key === "s" || e.key === "ArrowDown"){
@@ -205,10 +202,30 @@ function mouseDownHandler(){
   mousedown = true
 }
 
-
+function collideCheck() {
+    for (let i = 0; i < projectiles.length; i++) {
+        let currentProj = projectiles[i];
+        
+        for (let j = 0; j < enemies.length; j++) {
+            let currentEnem = enemies[j];
+            if (
+                currentProj.x < currentEnem.x + currentEnem.width &&
+                currentProj.x + currentProj.radius > currentEnem.x &&
+                currentProj.y < currentEnem.y + currentEnem.height &&
+                currentProj.y + currentProj.radius > currentEnem.y
+            ) {
+                enemies.splice(j, 1);
+                projectiles.splice(i, 1); 
+                i--; 
+                break;
+            }
+        }
+    }
+}
 function draw() {
     drawBall()
     spawnEnemies()
+    collideCheck()
 }
 function startgame(){
     setInterval(draw, 10)
