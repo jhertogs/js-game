@@ -164,7 +164,7 @@ let activeEnemies = []
 
 function makeActiveEnemies(){
     num2 += 1
-    if (num2 > 500){
+    if (num2 > 10){
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
         activeEnemies.push({
@@ -273,7 +273,6 @@ function collideCheck() {
     for (let i = 0; i < projectiles.length; i++) {
         let currentProj = projectiles[i];
         
-        // Check collision with static enemies
         for (let j = 0; j < enemies.length; j++) {
             let currentEnem = enemies[j];
             if (
@@ -314,7 +313,7 @@ function collideCheck() {
         let distanceY = y - currentActiveEnem.y;
         let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-        if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) / 2) {
+        if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /1.0 ) {
             // Handle player collision with active enemy
             console.log("Player hit by enemy!");
             activeEnemies.splice(k, 1);
