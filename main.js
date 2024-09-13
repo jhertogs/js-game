@@ -9,7 +9,7 @@ let y = canvas.height - 30
 
 let shootx
 let shooty
-const ballRadius = 10
+let ballRadius = 10
 
 let rightPressed = false;
 let leftPressed = false;
@@ -44,7 +44,7 @@ function drawBall() {
 
     // Draw the rectangle, now rotated
     ctx.beginPath();
-    ctx.rect(-ballRadius / 2, -ballRadius / 2, 10, 30);
+    ctx.rect(-ballRadius / 2, -ballRadius / 2, ballRadius, ballRadius * 3);
     ctx.fillStyle = "#0095DD";
     ctx.fill();
     ctx.closePath();
@@ -132,7 +132,7 @@ let num = 0;
 
 function makeEnemies() {
     num += 1;
-    if (num > 100) {
+    if (num > 300) {
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
         //console.log(randx, randy);
@@ -155,6 +155,44 @@ function spawnEnemies() {
         ctx.fillStyle = "#00ff00";
         ctx.fill();
         ctx.closePath();
+    }
+}
+
+
+let num2 = 0
+let activeEnemies = []
+
+function makeActiveEnemies(){
+    num2 += 1
+    if (num2 > 500){
+        let randx = Math.random() * canvas.width;
+        let randy = Math.random() * canvas.height;
+        activeEnemies.push({
+            x: randx,
+            y: randy,
+            width: 10,
+            height: 10
+        })
+        num2 = 0
+    }
+}
+
+function spawnActiveEnemies(){
+    makeActiveEnemies()
+    for(let i=0; i < activeEnemies.length; i++){
+
+        let activeEnemy = activeEnemies[i]
+        ctx.beginPath()
+        ctx.rect(activeEnemy.x, activeEnemy.y, activeEnemy.width, activeEnemy.height)
+        ctx.fillStyle = "#000000";
+        ctx.fill();
+        ctx.closePath();
+    }
+}
+
+function moveActiveEnemies(){
+    for (let i=0; i < activeEnemies.lenght; i++){
+        
     }
 }
 
@@ -217,6 +255,9 @@ function collideCheck() {
                 enemies.splice(j, 1);
                 projectiles.splice(i, 1); 
                 i--; 
+                ballRadius += 0.2
+                console.log(ballRadius);
+                
                 break;
             }
         }
@@ -225,6 +266,7 @@ function collideCheck() {
 function draw() {
     drawBall()
     spawnEnemies()
+    spawnActiveEnemies()
     collideCheck()
 }
 function startgame(){
