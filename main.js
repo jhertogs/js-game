@@ -208,18 +208,6 @@ function moveActiveEnemies() {
         // Move the enemy towards the player
         activeEnemy.x += directionX * activeEnemy.speed;
         activeEnemy.y += directionY * activeEnemy.speed;
-
-        // Check for collision with player and move the enemy back slightly to prevent sticking
-        if (
-            x + ballRadius > activeEnemy.x &&
-            x - ballRadius < activeEnemy.x + activeEnemy.width &&
-            y + ballRadius > activeEnemy.y &&
-            y - ballRadius < activeEnemy.y + activeEnemy.height
-        ) {
-            // Move the enemy back slightly to prevent sticking
-            activeEnemy.x -= directionX * activeEnemy.speed * 2;
-            activeEnemy.y -= directionY * activeEnemy.speed * 2;
-        }
     }
     spawnActiveEnemies();
 }
@@ -313,7 +301,7 @@ function collideCheck() {
         let distanceY = y - currentActiveEnem.y;
         let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-        if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /1.0 ) {
+        if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
             // Handle player collision with active enemy
             console.log("Player hit by enemy!");
             activeEnemies.splice(k, 1);
