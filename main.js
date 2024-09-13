@@ -171,7 +171,8 @@ function makeActiveEnemies(){
             x: randx,
             y: randy,
             width: 10,
-            height: 10
+            height: 10,
+            speed: 2
         })
         num2 = 0
     }
@@ -188,12 +189,24 @@ function spawnActiveEnemies(){
         ctx.fill();
         ctx.closePath();
     }
+    
 }
 
 function moveActiveEnemies(){
-    for (let i=0; i < activeEnemies.lenght; i++){
-        
+    for (let i=0; i < activeEnemies.length; i++){
+        let activeEnemy = activeEnemies[i]
+
+        let directionx = x - activeEnemy.x
+        let directiony = y - activeEnemy.y
+
+        let lenght = Math.sqrt(directionx * directionx + directiony * directiony)
+        directionx /= lenght
+        directiony /= lenght
+
+        activeEnemy.x += directionx * activeEnemy.speed
+        activeEnemy.y += directiony * activeEnemy.speed
     }
+    spawnActiveEnemies()
 }
 
 document.addEventListener("keydown", keyDownHandler, false);
@@ -261,12 +274,26 @@ function collideCheck() {
                 break;
             }
         }
+        for (let n = 0; n < activeEnemies.length; n++){
+            let currentActiveEnem = activeEnemies[n]
+            if(
+                currentProj.x < currentActiveEnem.x + currentActiveEnem.width &&
+                currentProj.x + currentProj.radius > currentActiveEnem.x &&
+                currentProj.y < currentActiveEnem.y + currentActiveEnem.height &&
+                currentProj.y + currentProj.radius > currentActiveEnem.y
+            ){
+                activeEnemies.splice(n, 1)
+                projectiles.splice(i, 1)
+                i--
+                break
+            }
+        }
     }
 }
 function draw() {
     drawBall()
+    moveActiveEnemies()
     spawnEnemies()
-    spawnActiveEnemies()
     collideCheck()
 }
 function startgame(){
