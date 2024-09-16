@@ -132,7 +132,7 @@ let num = 0;
 
 function makeEnemies() {
     num += 1;
-    if (num > 300) {
+    if (num > 30) {
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
         //console.log(randx, randy);
@@ -164,7 +164,7 @@ let activeEnemies = []
 
 function makeActiveEnemies(){
     num2 += 1
-    if (num2 > 10){
+    if (num2 > 500){
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
         activeEnemies.push({
