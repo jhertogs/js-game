@@ -1,94 +1,56 @@
+import { Player } from "./Player.js"
+
 class main{
     constructor(){
+        this.canvas = document.getElementById("canvas")
+        this.ctx = this.canvas.getContext("2d")
+
+        this.x = this.canvas.width / 2
+        this.y = this.canvas.height - 30
+        this.ballRadius = 10
+        this.rightPressed = false;
+        this.leftPressed = false;
+        this.upPressed = false
+        this.downPressed = false
+        this.mousedown = false
+        this.mouseX = 0;
+        this.mouseY = 0;
+        this.num = 0;
+        this.projectiles = [];
+        this.enemies = []
+        this.num2 = 0
+        this.activeEnemies = []
+
+        this.player = new Player
     }
 }
 
-const canvas = document.getElementById("canvas")
-const ctx = canvas.getContext("2d")
-
-let x = canvas.width / 2
-let y = canvas.height - 30
-let ballRadius = 10
-let rightPressed = false;
-let leftPressed = false;
-let upPressed = false
-let downPressed = false
-let mousedown = false
-
-let mouseX = 0;
-let mouseY = 0;
-let num = 0;
-
-let projectiles = [];
-let enemies = []
-
-let num2 = 0
-let activeEnemies = []
-
-class Player{
-    draw(){
-        const angle = Math.atan2(mouseY - y, mouseX - x);
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw the ball
-      ctx.beginPath();
-      ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-      ctx.fillStyle = "#0095DD";
-      ctx.fill();
-      ctx.closePath();
-
-      // Save the context's current state before applying rotation
-      ctx.save();
-
-      // Move the origin of the canvas to the center of the rectangle (center of the ball)
-      ctx.translate(x, y);
-
-      // Rotate the canvas to align the rectangle with the cursor
-      ctx.rotate(angle - Math.PI / 2);
-
-      // Draw the rectangle, now rotated
-      ctx.beginPath();
-      ctx.rect(-ballRadius / 2, -ballRadius / 2, ballRadius, ballRadius * 3);
-      ctx.fillStyle = "#0095DD";
-      ctx.fill();
-      ctx.closePath();
-
-      // Restore the canvas to its original state (no rotation)
-      ctx.restore();
+//const canvas = document.getElementById("canvas")
+//const ctx = canvas.getContext("2d")
+//
+//let x = canvas.width / 2
+//let y = canvas.height - 30
+//let ballRadius = 10
+//let rightPressed = false;
+//let leftPressed = false;
+//let upPressed = false
+//let downPressed = false
+//let mousedown = false
+//
+//let mouseX = 0;
+//let mouseY = 0;
+//let num = 0;
+//
+//let projectiles = [];
+//let enemies = []
+//
+//let num2 = 0
+//let activeEnemies = []
 
 
+//let player = new Player
 
-      // Move the ball within canvas bounds
-      if (x < canvas.width - ballRadius){
-        if (rightPressed) {
-            x += 1
-          }
-      }
-      if (x > 10){
-        if (leftPressed) {
-            x -= 1
-          }
-      }
-      if ( y > 10){
-        if (upPressed){
-            y -= 1
-        }
-      }
-      if (y < canvas.height - ballRadius){
-        if (downPressed){
-            y += 1
-        }
-      } 
-
-      if(mousedown){
-        bullets.shoot()
-      }
-    bullets.draw()
-    mousedown = false
-    }
-}
-let player = new Player
+let Main = new main()
 
 
 class Bullets{
@@ -198,7 +160,7 @@ class Enemies{
     }
 
 }
-drawEnemies = new Enemies
+let drawEnemies = new Enemies
 
 
 
@@ -307,7 +269,7 @@ let checkCollison = new Collision()
 
 
 function draw() {
-    player.draw()
+    Main.player.draw()
     drawEnemies.createActive()
     drawEnemies.createPassive()
     checkCollison.check()

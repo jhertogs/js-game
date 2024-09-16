@@ -1,7 +1,5 @@
-Main = new main()
-
-function drawBall() {
-    // Calculate angle to rotate the rectangle
+export class Player{
+  draw(){
     const angle = Math.atan2(mouseY - y, mouseX - x);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,11 +55,9 @@ function drawBall() {
     } 
 
     if(mousedown){
-      shoot()
+      bullets.shoot()
     }
-  drawProjectiles()
+  bullets.draw()
   mousedown = false
-  
-
-  
+  }
 }
