@@ -8,17 +8,16 @@ class main{
     
 }
 
+ok = new main()
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
-ok = new main()
+
 let x = canvas.width / 2
 let y = canvas.height - 30
 //console.log(canvas.width, canvas.height);
 
 
 
-let shootx
-let shooty
 let ballRadius = 10
 
 let rightPressed = false;
