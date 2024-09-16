@@ -21,10 +21,10 @@ export class Canvas{
         this.num2 = 0
         this.activeEnemies = []
 
-        document.addEventListener("keydown", keyDownHandler, false);
-        document.addEventListener("keyup", keyUpHandler, false);
-        document.addEventListener("mousemove", mouseMoveHandler, false)
-        document.addEventListener("mousedown", mouseDownHandler, false)
+        document.addEventListener("keydown", this.keyDownHandler, false);
+        document.addEventListener("keyup", this.keyUpHandler, false);
+        document.addEventListener("mousemove", this.mouseMoveHandler, false)
+        document.addEventListener("mousedown", this.mouseDownHandler, false)
 
         
     }
@@ -59,7 +59,7 @@ export class Canvas{
     }
 
     mouseMoveHandler(e) {
-        const rect = canvas.getBoundingClientRect();
+        const rect = this.canvas.getBoundingClientRect();
         mouseX = e.clientX - rect.left;
         mouseY = e.clientY - rect.top;
     }
@@ -68,7 +68,8 @@ export class Canvas{
         mousedown = true
       }
 }
-let player = new Player
+
+
 
 //const canvas = document.getElementById("canvas")
 //const ctx = canvas.getContext("2d")
@@ -208,49 +209,49 @@ let drawEnemies = new Enemies
 
 
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false)
-document.addEventListener("mousedown", mouseDownHandler, false)
-
-function keyDownHandler(e) {
-    if (e.key === "d" || e.key === "ArrowRight") {
-      rightPressed = true;
-    } 
-    if (e.key === "a" || e.key === "ArrowLeft") {
-      leftPressed = true;
-    }
-    if (e.key === "w" || e.key === "ArrowUp"){
-        upPressed = true
-    }
-    if (e.key === "s" || e.key === "ArrowDown"){
-        downPressed = true
-    }
-}
-  
-function keyUpHandler(e) {
-    if (e.key === "d" || e.key === "ArrowRight") {
-      rightPressed = false;
-    } 
-    if (e.key === "a" || e.key === "ArrowLeft") {
-      leftPressed = false;
-    }
-    if (e.key === "w" || e.key === "ArrowUp"){
-        upPressed = false
-    }
-    if (e.key === "s" || e.key === "ArrowDown"){
-        downPressed = false
-    }
-}
-
-function mouseMoveHandler(e) {
-    const rect = canvas.getBoundingClientRect();
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
-}
-function mouseDownHandler(){
-  mousedown = true
-}
+//document.addEventListener("keydown", keyDownHandler, false);
+//document.addEventListener("keyup", keyUpHandler, false);
+//document.addEventListener("mousemove", mouseMoveHandler, false)
+//document.addEventListener("mousedown", mouseDownHandler, false)
+//
+//function keyDownHandler(e) {
+//    if (e.key === "d" || e.key === "ArrowRight") {
+//      rightPressed = true;
+//    } 
+//    if (e.key === "a" || e.key === "ArrowLeft") {
+//      leftPressed = true;
+//    }
+//    if (e.key === "w" || e.key === "ArrowUp"){
+//        upPressed = true
+//    }
+//    if (e.key === "s" || e.key === "ArrowDown"){
+//        downPressed = true
+//    }
+//}
+//  
+//function keyUpHandler(e) {
+//    if (e.key === "d" || e.key === "ArrowRight") {
+//      rightPressed = false;
+//    } 
+//    if (e.key === "a" || e.key === "ArrowLeft") {
+//      leftPressed = false;
+//    }
+//    if (e.key === "w" || e.key === "ArrowUp"){
+//        upPressed = false
+//    }
+//    if (e.key === "s" || e.key === "ArrowDown"){
+//        downPressed = false
+//    }
+//}
+//
+//function mouseMoveHandler(e) {
+//    const rect = canvas.getBoundingClientRect();
+//    mouseX = e.clientX - rect.left;
+//    mouseY = e.clientY - rect.top;
+//}
+//function mouseDownHandler(){
+//  mousedown = true
+//}
 
 class Collision {
     check(){
