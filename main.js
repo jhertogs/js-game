@@ -1,6 +1,6 @@
 import { Player } from "./Player.js"
 
-class main{
+export class Canvas{
     constructor(){
         this.canvas = document.getElementById("canvas")
         this.ctx = this.canvas.getContext("2d")
@@ -21,9 +21,54 @@ class main{
         this.num2 = 0
         this.activeEnemies = []
 
-        this.player = new Player
+        document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+        document.addEventListener("mousemove", mouseMoveHandler, false)
+        document.addEventListener("mousedown", mouseDownHandler, false)
+
+        
     }
+    keyDownHandler(e) {
+        if (e.key === "d" || e.key === "ArrowRight") {
+          rightPressed = true;
+        } 
+        if (e.key === "a" || e.key === "ArrowLeft") {
+          leftPressed = true;
+        }
+        if (e.key === "w" || e.key === "ArrowUp"){
+            upPressed = true
+        }
+        if (e.key === "s" || e.key === "ArrowDown"){
+            downPressed = true
+        }
+    }
+
+    keyUpHandler(e) {
+        if (e.key === "d" || e.key === "ArrowRight") {
+          rightPressed = false;
+        } 
+        if (e.key === "a" || e.key === "ArrowLeft") {
+          leftPressed = false;
+        }
+        if (e.key === "w" || e.key === "ArrowUp"){
+            upPressed = false
+        }
+        if (e.key === "s" || e.key === "ArrowDown"){
+            downPressed = false
+        }
+    }
+
+    mouseMoveHandler(e) {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+    }
+
+    mouseDownHandler(){
+        mousedown = true
+      }
 }
+let player = new Player
 
 //const canvas = document.getElementById("canvas")
 //const ctx = canvas.getContext("2d")
@@ -48,9 +93,7 @@ class main{
 //let activeEnemies = []
 
 
-//let player = new Player
 
-let Main = new main()
 
 
 class Bullets{
@@ -269,7 +312,7 @@ let checkCollison = new Collision()
 
 
 function draw() {
-    Main.player.draw()
+    player.draw()
     drawEnemies.createActive()
     drawEnemies.createPassive()
     checkCollison.check()

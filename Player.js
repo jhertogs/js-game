@@ -1,63 +1,66 @@
+import { Canvas } from "./main";
 export class Player{
   draw(){
-    const angle = Math.atan2(mouseY - y, mouseX - x);
+    let cnvs = new Canvas()
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const angle = Math.atan2(cnvs.mouseY - cnvs.y, cnvs.mouseX - cnvs.x);
+
+    cnvs.ctx.clearRect(0, 0, cnvs.canvas.width, cnvs.canvas.height);
 
     // Draw the ball
-    ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    cnvs.ctx.beginPath();
+    cnvs.ctx.arc(cnvs.x, cnvs.y, cnvs.ballRadius, 0, Math.PI * 2);
+    cnvs.ctx.fillStyle = "#0095DD";
+    cnvs.ctx.fill();
+    cnvs.ctx.closePath();
 
     // Save the context's current state before applying rotation
-    ctx.save();
+    cnvs.ctx.save();
 
     // Move the origin of the canvas to the center of the rectangle (center of the ball)
-    ctx.translate(x, y);
+    cnvs.ctx.translate(cnvs.x, cnvs.y);
 
     // Rotate the canvas to align the rectangle with the cursor
-    ctx.rotate(angle - Math.PI / 2);
+    cnvs.ctx.rotate(angle - Math.PI / 2);
 
     // Draw the rectangle, now rotated
-    ctx.beginPath();
-    ctx.rect(-ballRadius / 2, -ballRadius / 2, ballRadius, ballRadius * 3);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
+    cnvs.ctx.beginPath();
+    cnvs.ctx.rect(-cnvs.ballRadius / 2, -cnvs.ballRadius / 2, cnvs.ballRadius, cnvs.ballRadius * 3);
+    cnvs.ctx.fillStyle = "#0095DD";
+    cnvs.ctx.fill();
+    cnvs.ctx.closePath();
 
     // Restore the canvas to its original state (no rotation)
-    ctx.restore();
+    cnvs.ctx.restore();
 
 
 
     // Move the ball within canvas bounds
-    if (x < canvas.width - ballRadius){
-      if (rightPressed) {
-          x += 1
+    if (x < cnvs.canvas.width - cnvs.ballRadius){
+      if (cnvs.rightPressed) {
+          cnvs.x += 1
         }
     }
-    if (x > 10){
-      if (leftPressed) {
-          x -= 1
+    if (cnvs.x > 10){
+      if (cnvs.leftPressed) {
+          cnvs.x -= 1
         }
     }
-    if ( y > 10){
-      if (upPressed){
-          y -= 1
+    if ( cnvs.y > 10){
+      if (cnvs.upPressed){
+          cnvs.y -= 1
       }
     }
-    if (y < canvas.height - ballRadius){
-      if (downPressed){
-          y += 1
+    if (cnvs.y < cnvs.canvas.height - cnvs.ballRadius){
+      if (cnvs.downPressed){
+          cnvs.y += 1
       }
     } 
 
-    if(mousedown){
+    if(cnvs.mousedown){
       bullets.shoot()
     }
   bullets.draw()
-  mousedown = false
+  cnvs.mousedown = false
   }
 }
