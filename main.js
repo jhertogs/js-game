@@ -1,11 +1,21 @@
+class main{
+    constructor(){
+        this.canvas = document.getElementById("canvas")
+        this.ctx = this.canvas.getContext("2d")
+        this.x = this.canvas.width
+        this.y = this.canvas.height
+    }
+    
+}
+
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
-
+ok = new main()
 let x = canvas.width / 2
 let y = canvas.height - 30
 //console.log(canvas.width, canvas.height);
 
-// widht = 500 height = 350
+
 
 let shootx
 let shooty
