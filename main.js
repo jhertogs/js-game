@@ -22,7 +22,8 @@ let num = 0;
 let projectiles = [];
 let enemies = []
 
-
+let num2 = 0
+let activeEnemies = []
 
 class Player{
     draw(){
@@ -128,7 +129,7 @@ class Bullets{
 let bullets = new Bullets()
 
 class Enemies{
-    make(){
+    createPassive(){
             num += 1;
         if (num > 30) {
             let randx = Math.random() * canvas.width;
@@ -142,9 +143,6 @@ class Enemies{
             });
             num = 0;
         }
-    }
-    spawn(){
-        this.make()
         for (let i = 0; i < enemies.length; i++) {
             let enemy = enemies[i];
             ctx.beginPath();
@@ -154,46 +152,10 @@ class Enemies{
             ctx.closePath();
         }
     }
-}
-drawEnemies = new Enemies
 
+    createActive(){
 
-
-let num2 = 0
-let activeEnemies = []
-
-function makeActiveEnemies(){
-    num2 += 1
-    if (num2 > 500){
-        let randx = Math.random() * canvas.width;
-        let randy = Math.random() * canvas.height;
-        activeEnemies.push({
-            x: randx,
-            y: randy,
-            width: 10,
-            height: 10,
-            speed: 2
-        })
-        num2 = 0
-    }
-}
-
-function spawnActiveEnemies(){
-    makeActiveEnemies()
-    for(let i=0; i < activeEnemies.length; i++){
-
-        let activeEnemy = activeEnemies[i]
-        ctx.beginPath()
-        ctx.rect(activeEnemy.x, activeEnemy.y, activeEnemy.width, activeEnemy.height)
-        ctx.fillStyle = "#000000";
-        ctx.fill();
-        ctx.closePath();
-    }
-    
-}
-
-function moveActiveEnemies() {
-    for (let i = 0; i < activeEnemies.length; i++) {
+        for (let i = 0; i < activeEnemies.length; i++) {
         let activeEnemy = activeEnemies[i];
         
         // Calculate direction towards the player
@@ -209,8 +171,37 @@ function moveActiveEnemies() {
         activeEnemy.x += directionX * activeEnemy.speed;
         activeEnemy.y += directionY * activeEnemy.speed;
     }
-    spawnActiveEnemies();
+
+        num2 += 1
+        if (num2 > 500){
+            let randx = Math.random() * canvas.width;
+            let randy = Math.random() * canvas.height;
+            activeEnemies.push({
+                x: randx,
+                y: randy,
+                width: 10,
+                height: 10,
+                speed: 2
+            })
+            num2 = 0
+        }
+
+        for(let i=0; i < activeEnemies.length; i++){
+
+            let activeEnemy = activeEnemies[i]
+            ctx.beginPath()
+            ctx.rect(activeEnemy.x, activeEnemy.y, activeEnemy.width, activeEnemy.height)
+            ctx.fillStyle = "#000000";
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
 }
+drawEnemies = new Enemies
+
+
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -256,66 +247,70 @@ function mouseDownHandler(){
   mousedown = true
 }
 
-function collideCheck() {
-    // Check for collisions between projectiles and enemies
-    for (let i = 0; i < projectiles.length; i++) {
-        let currentProj = projectiles[i];
-        
-        for (let j = 0; j < enemies.length; j++) {
-            let currentEnem = enemies[j];
-            if (
-                currentProj.x + currentProj.radius > currentEnem.x &&
-                currentProj.x - currentProj.radius < currentEnem.x + currentEnem.width &&
-                currentProj.y + currentProj.radius > currentEnem.y &&
-                currentProj.y - currentProj.radius < currentEnem.y + currentEnem.height
-            ) {
-                enemies.splice(j, 1);
-                projectiles.splice(i, 1); 
-                ballRadius += 0.2;  // Increase the ball radius on hit
-                i--; 
-                break;
+class Collision {
+    check(){
+            for (let i = 0; i < projectiles.length; i++) {
+            let currentProj = projectiles[i];
+            
+            for (let j = 0; j < enemies.length; j++) {
+                let currentEnem = enemies[j];
+                if (
+                    currentProj.x + currentProj.radius > currentEnem.x &&
+                    currentProj.x - currentProj.radius < currentEnem.x + currentEnem.width &&
+                    currentProj.y + currentProj.radius > currentEnem.y &&
+                    currentProj.y - currentProj.radius < currentEnem.y + currentEnem.height
+                ) {
+                    enemies.splice(j, 1);
+                    projectiles.splice(i, 1); 
+                    ballRadius += 0.2;  // Increase the ball radius on hit
+                    i--; 
+                    break;
+                }
+            }
+
+            // Check collision with active enemies
+            for (let n = 0; n < activeEnemies.length; n++) {
+                let currentActiveEnem = activeEnemies[n];
+                if (
+                    currentProj.x + currentProj.radius > currentActiveEnem.x &&
+                    currentProj.x - currentProj.radius < currentActiveEnem.x + currentActiveEnem.width &&
+                    currentProj.y + currentProj.radius > currentActiveEnem.y &&
+                    currentProj.y - currentProj.radius < currentActiveEnem.y + currentActiveEnem.height
+                ) {
+                    activeEnemies.splice(n, 1);
+                    projectiles.splice(i, 1);
+                    i--;
+                    break;
+                }
             }
         }
 
-        // Check collision with active enemies
-        for (let n = 0; n < activeEnemies.length; n++) {
-            let currentActiveEnem = activeEnemies[n];
-            if (
-                currentProj.x + currentProj.radius > currentActiveEnem.x &&
-                currentProj.x - currentProj.radius < currentActiveEnem.x + currentActiveEnem.width &&
-                currentProj.y + currentProj.radius > currentActiveEnem.y &&
-                currentProj.y - currentProj.radius < currentActiveEnem.y + currentActiveEnem.height
-            ) {
-                activeEnemies.splice(n, 1);
-                projectiles.splice(i, 1);
-                i--;
+        // Check if player collides with active enemies
+        for (let k = 0; k < activeEnemies.length; k++) {
+            let currentActiveEnem = activeEnemies[k];
+            let distanceX = x - currentActiveEnem.x;
+            let distanceY = y - currentActiveEnem.y;
+            let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
+                // Handle player collision with active enemy
+                console.log("Player hit by enemy!");
+                activeEnemies.splice(k, 1);
+                k--;
                 break;
             }
-        }
-    }
-
-    // Check if player collides with active enemies
-    for (let k = 0; k < activeEnemies.length; k++) {
-        let currentActiveEnem = activeEnemies[k];
-        let distanceX = x - currentActiveEnem.x;
-        let distanceY = y - currentActiveEnem.y;
-        let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-
-        if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
-            // Handle player collision with active enemy
-            console.log("Player hit by enemy!");
-            activeEnemies.splice(k, 1);
-            k--;
-            break;
-        }
+        } 
     }
 }
 
+let checkCollison = new Collision()
+
+
 function draw() {
     player.draw()
-    moveActiveEnemies()
-    drawEnemies.spawn()
-    collideCheck()
+    drawEnemies.createActive()
+    drawEnemies.createPassive()
+    checkCollison.check()
 }
 function startgame(){
     setInterval(draw, 10)
