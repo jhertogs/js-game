@@ -17,6 +17,12 @@ let mousedown = false
 
 let mouseX = 0;
 let mouseY = 0;
+let num = 0;
+
+let projectiles = [];
+let enemies = []
+
+
 
 class Player{
     draw(){
@@ -75,86 +81,82 @@ class Player{
       } 
 
       if(mousedown){
-        shoot()
+        bullets.shoot()
       }
-    drawProjectiles()
+    bullets.draw()
     mousedown = false
     }
 }
 let player = new Player
 
 
-let projectiles = [];
+class Bullets{
+    shoot() {
 
-function shoot() {
-    // Calculate the direction to shoot
-    let shootAngle = Math.atan2(mouseY - y, mouseX - x);
-    let speed = 5; // Adjust the speed as necessary
+        let shootAngle = Math.atan2(mouseY - y, mouseX - x);
+        let speed = 5; 
 
-    // Initialize the projectile with position and velocity
-    projectiles.push({
-        x: x,
-        y: y,
-        dx: Math.cos(shootAngle) * speed,
-        dy: Math.sin(shootAngle) * speed,
-        radius: ballRadius / 2
-    });
-}
+        projectiles.push({
+            x: x,
+            y: y,
+            dx: Math.cos(shootAngle) * speed,
+            dy: Math.sin(shootAngle) * speed,
+            radius: ballRadius / 2
+        });
+    }
+    draw() {
+        //drawprojectiles
+        for (let i = 0; i < projectiles.length; i++) {
+            let p = projectiles[i];
 
-function drawProjectiles() {
-    for (let i = 0; i < projectiles.length; i++) {
-        let p = projectiles[i];
+            p.x += p.dx;
+            p.y += p.dy;
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = "#FF0000";
+            ctx.fill();
+            ctx.closePath();
 
-        // Update projectile position
-        p.x += p.dx;
-        p.y += p.dy;
-
-        // Draw the projectile
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#FF0000";
-        ctx.fill();
-        ctx.closePath();
-
-        // Remove projectiles that go off-screen
-        if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
-            projectiles.splice(i, 1);
-            i--; // Adjust index after removing element
+            if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+                projectiles.splice(i, 1);
+                i--;
+            }
         }
     }
 }
+let bullets = new Bullets()
 
-let enemies = []
-
-let num = 0;
-
-function makeEnemies() {
-    num += 1;
-    if (num > 30) {
-        let randx = Math.random() * canvas.width;
-        let randy = Math.random() * canvas.height;
-        //console.log(randx, randy);
-        enemies.push({
-            x: randx,
-            y: randy,
-            width: 10,
-            height: 10
-        });
-        num = 0;
+class Enemies{
+    make(){
+            num += 1;
+        if (num > 30) {
+            let randx = Math.random() * canvas.width;
+            let randy = Math.random() * canvas.height;
+            //console.log(randx, randy);
+            enemies.push({
+                x: randx,
+                y: randy,
+                width: 10,
+                height: 10
+            });
+            num = 0;
+        }
+    }
+    spawn(){
+        this.make()
+        for (let i = 0; i < enemies.length; i++) {
+            let enemy = enemies[i];
+            ctx.beginPath();
+            ctx.rect(enemy.x, enemy.y, enemy.width, enemy.height);
+            ctx.fillStyle = "#00ff00";
+            ctx.fill();
+            ctx.closePath();
+        }
     }
 }
+drawEnemies = new Enemies
 
-function spawnEnemies() {
-    makeEnemies();
-    for (let i = 0; i < enemies.length; i++) {
-        let enemy = enemies[i];
-        ctx.beginPath();
-        ctx.rect(enemy.x, enemy.y, enemy.width, enemy.height);
-        ctx.fillStyle = "#00ff00";
-        ctx.fill();
-        ctx.closePath();
-    }
-}
 
 
 let num2 = 0
@@ -312,7 +314,7 @@ function collideCheck() {
 function draw() {
     player.draw()
     moveActiveEnemies()
-    spawnEnemies()
+    drawEnemies.spawn()
     collideCheck()
 }
 function startgame(){
