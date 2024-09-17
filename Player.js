@@ -1,9 +1,11 @@
 import { Canvas } from "./canvas";
+import { Bullets } from "./Bullets";
+
 
 export class Player{
   draw(){
     let cnvs = new Canvas()
-
+    let bullets = new Bullets()
     const angle = Math.atan2(cnvs.mouseY - cnvs.y, cnvs.mouseX - cnvs.x);
 
     cnvs.ctx.clearRect(0, 0, cnvs.canvas.width, cnvs.canvas.height);
