@@ -1,4 +1,5 @@
-import { Canvas } from "./main";
+import { Canvas } from "./canvas";
+
 export class Player{
   draw(){
     let cnvs = new Canvas()
@@ -36,7 +37,7 @@ export class Player{
 
 
     // Move the ball within canvas bounds
-    if (x < cnvs.canvas.width - cnvs.ballRadius){
+    if (cnvs.x < cnvs.canvas.width - cnvs.ballRadius){
       if (cnvs.rightPressed) {
           cnvs.x += 1
         }
