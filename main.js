@@ -1,5 +1,6 @@
 import { Player } from "./Player.js"
 
+
 export class Canvas{
     constructor(){
         this.canvas = document.getElementById("canvas")
@@ -69,7 +70,7 @@ export class Canvas{
       }
 }
 
-
+let player = new Player()
 
 //const canvas = document.getElementById("canvas")
 //const ctx = canvas.getContext("2d")
