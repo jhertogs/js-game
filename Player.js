@@ -13,6 +13,21 @@ export class Player{
         this.rightPressed = rightPressed;
         this.mousedown = mousedown;
         this. projectiles = []
+
+
+        //bind(this) is becuase in js this refers to the element that triggerd the event not the function itself bind(this) binds it to itself insead.
+        this.keyDownHandler = this.keyDownHandler.bind(this)
+        document.addEventListener("keydown", this.keyDownHandler, false)
+
+        this.keyUpHandler = this.keyUpHandler.bind(this)
+        document.addEventListener("keyup", this.keyUpHandler, false)
+
+        this.mouseDownHandler = this.mouseDownHandler.bind(this)
+        document.addEventListener("mousedown", this.mouseDownHandler, false)
+        
+        this.mouseMoveHandler = this.mouseMoveHandler.bind(this)
+        document.addEventListener("mousemove", this.mouseMoveHandler, false)
+
     }
     
         drawPlayer() {
@@ -110,7 +125,46 @@ export class Player{
         }
       this.mousedown = false
     }
-    
+
+    keyDownHandler(e) {
+        if (e.key === "d" || e.key === "ArrowRight") {
+          this.rightPressed = true;
+        } 
+        if (e.key === "a" || e.key === "ArrowLeft") {
+          this.leftPressed = true;
+        }
+        if (e.key === "w" || e.key === "ArrowUp"){
+            this.upPressed = true
+        }
+        if (e.key === "s" || e.key === "ArrowDown"){
+            this.downPressed = true
+        }
+    }
+
+    keyUpHandler(e) {
+        if (e.key === "d" || e.key === "ArrowRight") {
+           this.rightPressed = false;
+        } 
+        if (e.key === "a" || e.key === "ArrowLeft") {
+           this.leftPressed = false;
+        }
+        if (e.key === "w" || e.key === "ArrowUp"){
+            this.upPressed = false
+        }
+        if (e.key === "s" || e.key === "ArrowDown"){
+            this.downPressed = false
+        }
+    }
+
+    mouseMoveHandler(e) {
+        const rect = canvas.getBoundingClientRect();
+        this.mouseX = e.clientX - rect.left;
+        this.mouseY = e.clientY - rect.top;
+    }
+
+    mouseDownHandler(){
+        this.mousedown = true
+      }
 }
 
 
