@@ -42,25 +42,6 @@ let player  = new Player(
      downPressed
     )
 
-
-function shoot() {
-    // Calculate the direction to shoot
-    let shootAngle = Math.atan2(mouseY - y, mouseX - x);
-    let speed = 5; // Adjust the speed as necessary
-
-    // Initialize the projectile with position and velocity
-    projectiles.push({
-        x: x,
-        y: y,
-        dx: Math.cos(shootAngle) * speed,
-        dy: Math.sin(shootAngle) * speed,
-        radius: ballRadius / 2
-    });
-}
-
-function drawProjectiles() {
-}
-
 let enemies = []
 
 let num = 0;
@@ -148,12 +129,6 @@ function moveActiveEnemies() {
 }
 
 
-
-
-
-  
-
-
 function collideCheck() {
     // Check for collisions between projectiles and enemies
     for (let i = 0; i < projectiles.length; i++) {
@@ -208,12 +183,6 @@ function collideCheck() {
         }
     }
 }
-
-
-//player.keyDownHandler()
-//player.keyUpHandler()
-//player.mouseMoveHandler()
-//player.mouseDownHandler()
 
 function draw() {
     //console.log(rightPressed)

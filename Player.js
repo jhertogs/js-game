@@ -24,7 +24,7 @@ export class Player{
 
         this.mouseDownHandler = this.mouseDownHandler.bind(this)
         document.addEventListener("mousedown", this.mouseDownHandler, false)
-        
+
         this.mouseMoveHandler = this.mouseMoveHandler.bind(this)
         document.addEventListener("mousemove", this.mouseMoveHandler, false)
 
@@ -65,8 +65,6 @@ export class Player{
 
 
         // Move the ball within canvas bounds
-        console.log("Player: ", this.rightPressed);
-        
         if (this.x < this.canvas.width - this.playerSize){
           if (this.rightPressed) {
               this.x += 1
