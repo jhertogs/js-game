@@ -14,8 +14,7 @@ export class Player{
         this.mousedown = mousedown;
         this. projectiles = []
 
-
-        //bind(this) is becuase in js this refers to the element that triggerd the event not the function itself, bind(this) binds it to itself insead.
+        //bind(this) is becuase in js -this- with evenlisteners refers to the element that triggerd the event not the function itself, bind(this) binds it to itself insead.
         this.keyDownHandler = this.keyDownHandler.bind(this)
         document.addEventListener("keydown", this.keyDownHandler, false)
 
@@ -29,10 +28,7 @@ export class Player{
         document.addEventListener("mousemove", this.mouseMoveHandler, false)
 
     }
-    
-        drawPlayer() {
-            //console.log(this.x, this.y);
-            
+    drawPlayer() {
         // Calculate angle to rotate the rectangle
         const angle = Math.atan2(this.mouseY - this.y, this.mouseX - this.x);
 
@@ -60,11 +56,7 @@ export class Player{
         this.ctx.fillStyle = "#0095DD";
         this.ctx.fill();
         this.ctx.closePath();
-
-        // Restore the canvas to its original state (no rotation)
         this.ctx.restore();
-
-
 
         // Move the ball within canvas bounds
         if (this.x < this.canvas.width - this.playerSize){
@@ -86,9 +78,7 @@ export class Player{
           if (this.downPressed){
               this.y += 1
           }
-        } 
-
-        
+        }
 
         if(this.mousedown){
                 // Calculate the direction to shoot
@@ -165,7 +155,6 @@ export class Player{
     mouseDownHandler(){
         this.mousedown = true
       }
-
 }
 
 

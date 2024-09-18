@@ -1,4 +1,4 @@
-import { Player } from "./Player"
+
 
 export class Enemy {
     constructor(num, num2, enemies, activeEnemies, canvas, ctx){
