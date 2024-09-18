@@ -5,11 +5,8 @@ const ctx = canvas.getContext("2d")
 
 let x = canvas.width / 2
 let y = canvas.height - 30
-//console.log(canvas.width, canvas.height);
-
 
 let ballRadius = 10
-
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false
@@ -19,13 +16,11 @@ let mousedown = false
 let mouseX = 0;
 let mouseY = 0;
 
+let enemies = []
+let num = 0;
 
-
-let projectiles = [];
-//document.addEventListener("keydown", player.keyDownHandler, false);
-//document.addEventListener("keyup", player.keyUpHandler, false);
-//document.addEventListener("mousemove", player.mouseMoveHandler, false)
-//document.addEventListener("mousedown", mouseDownHandler, false)
+let num2 = 0
+let activeEnemies = []
 
 let player  = new Player(
      x,
@@ -42,13 +37,11 @@ let player  = new Player(
      downPressed
     )
 
-let enemies = []
 
-let num = 0;
 
 function makeEnemies() {
     num += 1;
-    if (num > 300) {
+    if (num > 80) {
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
         //console.log(randx, randy);
@@ -73,10 +66,6 @@ function spawnEnemies() {
         ctx.closePath();
     }
 }
-
-
-let num2 = 0
-let activeEnemies = []
 
 function makeActiveEnemies(){
     num2 += 1
@@ -127,7 +116,6 @@ function moveActiveEnemies() {
     }
     spawnActiveEnemies();
 }
-
 
 function collideCheck() {
     // Check for collisions between projectiles and enemies
