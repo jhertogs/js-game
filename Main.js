@@ -80,7 +80,7 @@ let activeEnemies = []
 
 function makeActiveEnemies(){
     num2 += 1
-    if (num2 > 10){
+    if (num2 > 30){
         let randx = Math.random() * canvas.width;
         let randy = Math.random() * canvas.height;
         activeEnemies.push({
@@ -113,8 +113,8 @@ function moveActiveEnemies() {
         let activeEnemy = activeEnemies[i];
         
         // Calculate direction towards the player
-        let directionX = x - activeEnemy.x;
-        let directionY = y - activeEnemy.y;
+        let directionX = player.x - activeEnemy.x;
+        let directionY = player.y - activeEnemy.y;
         let length = Math.sqrt(directionX * directionX + directionY * directionY);
         
         // Normalize direction
@@ -131,8 +131,8 @@ function moveActiveEnemies() {
 
 function collideCheck() {
     // Check for collisions between projectiles and enemies
-    for (let i = 0; i < projectiles.length; i++) {
-        let currentProj = projectiles[i];
+    for (let i = 0; i < player.projectiles.length; i++) {
+        let currentProj = player.projectiles[i];
         
         for (let j = 0; j < enemies.length; j++) {
             let currentEnem = enemies[j];
@@ -143,8 +143,8 @@ function collideCheck() {
                 currentProj.y - currentProj.radius < currentEnem.y + currentEnem.height
             ) {
                 enemies.splice(j, 1);
-                projectiles.splice(i, 1); 
-                ballRadius += 0.2;  // Increase the ball radius on hit
+                player.projectiles.splice(i, 1); 
+                player.playerSize += 0.2;  // Increase the ball radius on hit
                 i--; 
                 break;
             }
@@ -160,8 +160,10 @@ function collideCheck() {
                 currentProj.y - currentProj.radius < currentActiveEnem.y + currentActiveEnem.height
             ) {
                 activeEnemies.splice(n, 1);
-                projectiles.splice(i, 1);
+                player.projectiles.splice(i, 1);
                 i--;
+                console.log("ok");
+                
                 break;
             }
         }
@@ -170,8 +172,8 @@ function collideCheck() {
     // Check if player collides with active enemies
     for (let k = 0; k < activeEnemies.length; k++) {
         let currentActiveEnem = activeEnemies[k];
-        let distanceX = x - currentActiveEnem.x;
-        let distanceY = y - currentActiveEnem.y;
+        let distanceX = player.x - currentActiveEnem.x;
+        let distanceY = player.y - currentActiveEnem.y;
         let distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
