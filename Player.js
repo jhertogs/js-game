@@ -109,10 +109,8 @@ export class Player{
             }
         }
       this.mousedown = false
-    
-
-    
     }
+    
 }
 
 

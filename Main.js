@@ -172,6 +172,7 @@ function mouseDownHandler(){
   mousedown = true
 }
 
+
 function collideCheck() {
     // Check for collisions between projectiles and enemies
     for (let i = 0; i < projectiles.length; i++) {
@@ -242,7 +243,9 @@ let player  = new Player(
     )
 
 
+
 function draw() {
+    console.log(rightPressed)
     player.drawPlayer()
     moveActiveEnemies()
     spawnEnemies()
