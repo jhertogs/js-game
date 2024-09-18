@@ -38,7 +38,6 @@ let player  = new Player(
      downPressed
     )
 
-
 let spawnEnemies = new Enemy(
      num,
      num2,
@@ -47,8 +46,6 @@ let spawnEnemies = new Enemy(
      canvas,
      ctx
     )
-
-
 
 function collideCheck() {
     // Check for collisions between projectiles and enemies
@@ -108,13 +105,9 @@ function collideCheck() {
 }
 
 function draw() {
-    //console.log(player.y, player.x)
     player.drawPlayer()
-
     spawnEnemies.spawn()
     spawnEnemies.spawnActiveEnemies(player.x, player.y)
-
-
     collideCheck()
 }
 function startgame(){
