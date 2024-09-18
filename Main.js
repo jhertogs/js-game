@@ -1,3 +1,5 @@
+import { Player } from "./Player.js"
+
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
@@ -37,26 +39,6 @@ function shoot() {
 }
 
 function drawProjectiles() {
-    for (let i = 0; i < projectiles.length; i++) {
-        let p = projectiles[i];
-
-        // Update projectile position
-        p.x += p.dx;
-        p.y += p.dy;
-
-        // Draw the projectile
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#FF0000";
-        ctx.fill();
-        ctx.closePath();
-
-        // Remove projectiles that go off-screen
-        if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
-            projectiles.splice(i, 1);
-            i--; // Adjust index after removing element
-        }
-    }
 }
 
 let enemies = []
@@ -237,16 +219,31 @@ function collideCheck() {
 
         if (distance < ballRadius + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
             // Handle player collision with active enemy
-            console.log("Player hit by enemy!");
+            //console.log("Player hit by enemy!");
             activeEnemies.splice(k, 1);
             k--;
             break;
         }
     }
 }
+let player  = new Player(
+     x,
+     y,
+     ballRadius,
+     canvas,
+     ctx,
+     mouseY,
+     mouseX,
+     mousedown,
+     rightPressed,
+     leftPressed,
+     upPressed,
+     downPressed
+    )
+
 
 function draw() {
-    drawBall()
+    player.drawPlayer()
     moveActiveEnemies()
     spawnEnemies()
     collideCheck()
