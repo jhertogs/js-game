@@ -5,10 +5,7 @@ let x = canvas.width / 2
 let y = canvas.height - 30
 //console.log(canvas.width, canvas.height);
 
-// widht = 500 height = 350
 
-let shootx
-let shooty
 let ballRadius = 10
 
 let rightPressed = false;
