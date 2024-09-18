@@ -15,7 +15,7 @@ export class Player{
         this. projectiles = []
 
 
-        //bind(this) is becuase in js this refers to the element that triggerd the event not the function itself bind(this) binds it to itself insead.
+        //bind(this) is becuase in js this refers to the element that triggerd the event not the function itself, bind(this) binds it to itself insead.
         this.keyDownHandler = this.keyDownHandler.bind(this)
         document.addEventListener("keydown", this.keyDownHandler, false)
 
@@ -31,6 +31,8 @@ export class Player{
     }
     
         drawPlayer() {
+            //console.log(this.x, this.y);
+            
         // Calculate angle to rotate the rectangle
         const angle = Math.atan2(this.mouseY - this.y, this.mouseX - this.x);
 

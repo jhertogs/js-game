@@ -1,4 +1,5 @@
 import { Player } from "./Player.js"
+import { Enemy } from "./Enemies.js"
 
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
@@ -38,84 +39,16 @@ let player  = new Player(
     )
 
 
+let spawnEnemies = new Enemy(
+     num,
+     num2,
+     enemies,
+     activeEnemies,
+     canvas,
+     ctx,
+    )
 
-function makeEnemies() {
-    num += 1;
-    if (num > 80) {
-        let randx = Math.random() * canvas.width;
-        let randy = Math.random() * canvas.height;
-        //console.log(randx, randy);
-        enemies.push({
-            x: randx,
-            y: randy,
-            width: 10,
-            height: 10
-        });
-        num = 0;
-    }
-}
 
-function spawnEnemies() {
-    makeEnemies();
-    for (let i = 0; i < enemies.length; i++) {
-        let enemy = enemies[i];
-        ctx.beginPath();
-        ctx.rect(enemy.x, enemy.y, enemy.width, enemy.height);
-        ctx.fillStyle = "#00ff00";
-        ctx.fill();
-        ctx.closePath();
-    }
-}
-
-function makeActiveEnemies(){
-    num2 += 1
-    if (num2 > 30){
-        let randx = Math.random() * canvas.width;
-        let randy = Math.random() * canvas.height;
-        activeEnemies.push({
-            x: randx,
-            y: randy,
-            width: 10,
-            height: 10,
-            speed: 2
-        })
-        num2 = 0
-    }
-}
-
-function spawnActiveEnemies(){
-    makeActiveEnemies()
-    for(let i=0; i < activeEnemies.length; i++){
-
-        let activeEnemy = activeEnemies[i]
-        ctx.beginPath()
-        ctx.rect(activeEnemy.x, activeEnemy.y, activeEnemy.width, activeEnemy.height)
-        ctx.fillStyle = "#000000";
-        ctx.fill();
-        ctx.closePath();
-    }
-    
-}
-
-function moveActiveEnemies() {
-    for (let i = 0; i < activeEnemies.length; i++) {
-        let activeEnemy = activeEnemies[i];
-        
-        // Calculate direction towards the player
-        let directionX = player.x - activeEnemy.x;
-        let directionY = player.y - activeEnemy.y;
-        let length = Math.sqrt(directionX * directionX + directionY * directionY);
-        
-        // Normalize direction
-        directionX /= length;
-        directionY /= length;
-        
-        // Move the enemy towards the player
-        activeEnemy.x += directionX * activeEnemy.speed;
-        activeEnemy.y += directionY * activeEnemy.speed;
-    }
-    spawnActiveEnemies();
-}
 
 function collideCheck() {
     // Check for collisions between projectiles and enemies
@@ -175,11 +108,13 @@ function collideCheck() {
 }
 
 function draw() {
-    //console.log(rightPressed)
+    //console.log(player.y, player.x)
     player.drawPlayer()
-    
-    moveActiveEnemies()
-    spawnEnemies()
+
+    spawnEnemies.spawn()
+    spawnEnemies.spawnActiveEnemies()
+
+
     collideCheck()
 }
 function startgame(){

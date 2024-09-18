@@ -1,9 +1,97 @@
+import { Player } from "./Player"
+
+export class Enemy {
+    constructor(num, num2, enemies, activeEnemies, canvas, ctx, x, y){
+        this.ctx = ctx
+        this.canvas = canvas
+        this.num = num
+        this.num2 = num2
+        this.enemies = enemies
+        this.activeEnemies = activeEnemies
+        this.x = x
+        this.y = y
+    }
 
 
-class enemy {
-
+    makeEnemies() {
+        this.num += 1;
+        if (this.num > 80) {
+            let randx = Math.random() * canvas.width;
+            let randy = Math.random() * canvas.height;
+            //console.log(randx, randy);
+            this.enemies.push({
+                x: randx,
+                y: randy,
+                width: 10,
+                height: 10
+            });
+            this.num = 0;
+        }
+    }
     
+    spawn() {
+        this.makeEnemies();
+        for (let i = 0; i < this.enemies.length; i++) {
+            let enemy = this.enemies[i];
+            this.ctx.beginPath();
+            this.ctx.rect(enemy.x, enemy.y, enemy.width, enemy.height);
+            this.ctx.fillStyle = "#00ff00";
+            this.ctx.fill();
+            this.ctx.closePath();
+        }
+    }
+    
+    makeActiveEnemies(){
+        this.num2 += 1
+        if (this.num2 > 30){
+            let randx = Math.random() * canvas.width;
+            let randy = Math.random() * canvas.height;
+            this.activeEnemies.push({
+                x: randx,
+                y: randy,
+                width: 10,
+                height: 10,
+                speed: 2
+            })
+            this.num2 = 0
+        }
+    }
+    
+    createActiveEnemies(){
+        this.makeActiveEnemies()
+        for(let i=0; i < this.activeEnemies.length; i++){
+    
+            let activeEnemy = this.activeEnemies[i]
+            this.ctx.beginPath()
+            this.ctx.rect(activeEnemy.x, activeEnemy.y, activeEnemy.width, activeEnemy.height)
+            this.ctx.fillStyle = "#000000";
+            this.ctx.fill();
+            this.ctx.closePath();
+        }
+    }
+    
+    moveActiveEnemies() {
+        for (let i = 0; i < this.activeEnemies.length; i++) {
+            let activeEnemy = this.activeEnemies[i];
+            
+            // Calculate direction towards the player
+            let directionX = this.x - activeEnemy.x;
+            let directionY = this.y - activeEnemy.y;
+            let length = Math.sqrt(directionX * directionX + directionY * directionY);
+            
+            // Normalize direction
+            directionX /= length;
+            directionY /= length;
+            
+            // Move the enemy towards the player
+            activeEnemy.x += directionX * activeEnemy.speed;
+            activeEnemy.y += directionY * activeEnemy.speed;
+        }
+        this.createActiveEnemies();
+    }
 
-
+    spawnActiveEnemies(){
+        this.moveActiveEnemies()
+    }
 
 }
