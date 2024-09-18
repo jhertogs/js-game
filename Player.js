@@ -165,6 +165,7 @@ export class Player{
     mouseDownHandler(){
         this.mousedown = true
       }
+
 }
 
 

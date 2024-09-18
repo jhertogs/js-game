@@ -1,15 +1,13 @@
 import { Player } from "./Player"
 
 export class Enemy {
-    constructor(num, num2, enemies, activeEnemies, canvas, ctx, x, y){
+    constructor(num, num2, enemies, activeEnemies, canvas, ctx){
         this.ctx = ctx
         this.canvas = canvas
         this.num = num
         this.num2 = num2
         this.enemies = enemies
         this.activeEnemies = activeEnemies
-        this.x = x
-        this.y = y
     }
 
 
@@ -70,13 +68,13 @@ export class Enemy {
         }
     }
     
-    moveActiveEnemies() {
+    moveActiveEnemies(x, y) {
         for (let i = 0; i < this.activeEnemies.length; i++) {
             let activeEnemy = this.activeEnemies[i];
             
             // Calculate direction towards the player
-            let directionX = this.x - activeEnemy.x;
-            let directionY = this.y - activeEnemy.y;
+            let directionX = x - activeEnemy.x;
+            let directionY = y - activeEnemy.y;
             let length = Math.sqrt(directionX * directionX + directionY * directionY);
             
             // Normalize direction
@@ -90,8 +88,8 @@ export class Enemy {
         this.createActiveEnemies();
     }
 
-    spawnActiveEnemies(){
-        this.moveActiveEnemies()
+    spawnActiveEnemies(x, y){
+        this.moveActiveEnemies(x, y)
     }
 
 }

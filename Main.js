@@ -45,7 +45,7 @@ let spawnEnemies = new Enemy(
      enemies,
      activeEnemies,
      canvas,
-     ctx,
+     ctx
     )
 
 
@@ -112,7 +112,7 @@ function draw() {
     player.drawPlayer()
 
     spawnEnemies.spawn()
-    spawnEnemies.spawnActiveEnemies()
+    spawnEnemies.spawnActiveEnemies(player.x, player.y)
 
 
     collideCheck()
