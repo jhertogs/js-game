@@ -43,7 +43,7 @@ export class Enemy {
     
     makeActiveEnemies(){
         this.num2 += 1
-        if (this.num2 > 500){
+        if (this.num2 > 50){
             let randx = Math.random() * canvas.width;
             let randy = Math.random() * canvas.height;
             let randSize2 = Math.random() * 10

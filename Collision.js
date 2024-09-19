@@ -18,7 +18,7 @@ export class Collision {
                     //if proj and enemy collide make enemies move 1 "step" towards the direction of the projectile (so appears to move back)
                     enemies[j].x += currentProj.dx 
                     enemies[j].y += currentProj.dy
-                    
+
                     //if collision is detected subtract enemy and projectile health by 1
                     enemies[j].health = enemies[j].health - projDamage
 
@@ -78,7 +78,9 @@ export class Collision {
 
             if (distance < player.playerSize + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
                 // Handle player collision with active enemy
-                //console.log("Player hit by enemy!");
+                player.playerHealth -= 5
+                console.log(player.playerHealth);
+                
                 activeEnemies.splice(k, 1);
                 k--;
                 break;
