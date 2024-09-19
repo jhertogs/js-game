@@ -61,7 +61,7 @@ export class Player{
         this.ctx.restore();
 
         this.ctx.beginPath();
-        this.ctx.rect(this.x -5, this.y - 20, this.playerSize, this.playerSize / 4)
+        this.ctx.rect(this.x - this.playerSize , this.y - 20, this.playerSize * 2, this.playerSize / 4)
         this.ctx.fillStyle = "#00ff00"
         this.ctx.fill()
         this.ctx.closePath()
