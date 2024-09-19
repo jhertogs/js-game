@@ -47,7 +47,13 @@ export class Collision {
                     currentProj.y + currentProj.radius > currentActiveEnem.y &&
                     currentProj.y - currentProj.radius < currentActiveEnem.y + currentActiveEnem.height
                 ) {
-                    activeEnemies.splice(n, 1);
+                    activeEnemies[n].health = activeEnemies[n].health - projDamage
+                    currentProj.bulletHealth--
+
+                    if(activeEnemies[n].health < 0){
+                        activeEnemies.splice(n, 1);
+                    }
+                    
                     projectiles.splice(i, 1);
                     i--;
                     break;

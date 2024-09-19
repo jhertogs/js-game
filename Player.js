@@ -93,7 +93,7 @@ export class Player{
                     dx: Math.cos(shootAngle) * speed, // i dont uderstand this yet but it calculates the direction the projectile should move in
                     dy: Math.sin(shootAngle) * speed,
                     radius: this.playerSize / 2,
-                    damage: 0.4,
+                    damage: 0.5,
                     bulletHealth: 2
                 });
         }
