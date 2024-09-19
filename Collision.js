@@ -5,6 +5,7 @@ export class Collision {
         // Check for collisions between projectiles and enemies
         for (let i = 0; i < projectiles.length; i++) {
             let currentProj = projectiles[i];
+            let projDamage = currentProj.damage
             
             for (let j = 0; j < enemies.length; j++) {
                 let currentEnem = enemies[j];
@@ -16,7 +17,7 @@ export class Collision {
                 ) { 
                     console.log(enemies[j].health);
                     //if collision is detected subtract health by 1
-                    enemies[j].health = enemies[j].health - 1
+                    enemies[j].health = enemies[j].health - projDamage
                     //if health is zero delete the enemy
                     if(enemies[j].health < 1){
                         enemies.splice(j, 1);

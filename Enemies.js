@@ -16,13 +16,14 @@ export class Enemy {
         if (this.num > 300) {
             let randx = Math.random() * canvas.width;
             let randy = Math.random() * canvas.height;
+            let randSize = Math.random() * 10
             //console.log(randx, randy);
             this.enemies.push({
                 x: randx,
                 y: randy,
-                width: 10,
-                height: 10,
-                health: 2
+                width: 8 + randSize,
+                height: 8 + randSize,
+                health: 2 + randSize /4
             });
             this.num = 0;
         }
