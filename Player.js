@@ -93,7 +93,6 @@ export class Player{
                     dx: Math.cos(shootAngle) * speed, // i dont uderstand this yet but it calculates the direction the projectile should move in
                     dy: Math.sin(shootAngle) * speed,
                     radius: this.playerSize / 2,
-                    health: 3
                 });
         }
         //draws all the current projectiles in the array 
