@@ -13,7 +13,7 @@ export class Enemy {
 
     makeEnemies() {
         this.num += 1;
-        if (this.num > 60) {
+        if (this.num > 200) {
             let randx = Math.random() * canvas.width;
             let randy = Math.random() * canvas.height;
             let randSize = Math.random() * 10

@@ -15,9 +15,10 @@ export class Collision {
                     currentProj.y + currentProj.radius > currentEnem.y &&
                     currentProj.y - currentProj.radius < currentEnem.y + currentEnem.height
                 ) { 
-                    console.log(enemies[j].health);
-                    enemies[j].x += currentProj.dx
+                    //if proj and enemy collide make enemies move 1 "step" towards the direction of the projectile (so appears to move back)
+                    enemies[j].x += currentProj.dx 
                     enemies[j].y += currentProj.dy
+                    
                     //if collision is detected subtract enemy and projectile health by 1
                     enemies[j].health = enemies[j].health - projDamage
 
@@ -27,6 +28,7 @@ export class Collision {
                         enemies.splice(j, 1);
                         player.playerSize += 0.2;
                     }
+
                     if(currentProj.bulletHealth < 0){
                        projectiles.splice(i, 1); 
                     }
@@ -47,14 +49,20 @@ export class Collision {
                     currentProj.y + currentProj.radius > currentActiveEnem.y &&
                     currentProj.y - currentProj.radius < currentActiveEnem.y + currentActiveEnem.height
                 ) {
+
+                    activeEnemies[n].x += currentProj.dx
+                    activeEnemies[n].y += currentProj.dy
+
                     activeEnemies[n].health = activeEnemies[n].health - projDamage
                     currentProj.bulletHealth--
 
                     if(activeEnemies[n].health < 0){
                         activeEnemies.splice(n, 1);
                     }
+                    if (currentProj.bulletHealth < 0){
+                        projectiles.splice(i, 1);
+                    }
                     
-                    projectiles.splice(i, 1);
                     i--;
                     break;
                 }
