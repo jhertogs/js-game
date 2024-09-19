@@ -13,11 +13,17 @@ export class Collision {
                     currentProj.x - currentProj.radius < currentEnem.x + currentEnem.width &&
                     currentProj.y + currentProj.radius > currentEnem.y &&
                     currentProj.y - currentProj.radius < currentEnem.y + currentEnem.height
-                ) {
-                    enemies.splice(j, 1);
+                ) { 
+                    console.log(enemies[j].health);
+                    enemies[j].health--
+
+                    if(enemies[j].health < 1){
+                        enemies.splice(j, 1);
+                    }
+                    
                     projectiles.splice(i, 1);
                     player.playerSize += 0.2;  // Increase the ball radius on hit
-                    console.log( "Col: ", player.playerSize);
+                    //console.log( "Col: ", player.playerSize);
                     i--; 
                     break;
                 }

@@ -21,7 +21,8 @@ export class Enemy {
                 x: randx,
                 y: randy,
                 width: 10,
-                height: 10
+                height: 10,
+                health: 3
             });
             this.num = 0;
         }

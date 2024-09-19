@@ -29,7 +29,7 @@ export class Player{
 
     }
     drawPlayer() {
-        console.log("player: ",this.playerSize);
+        //console.log("player: ",this.playerSize);
         
         // Calculate angle to rotate the rectangle
         const angle = Math.atan2(this.mouseY - this.y, this.mouseX - this.x);
