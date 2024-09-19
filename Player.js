@@ -60,7 +60,7 @@ export class Player{
         this.ctx.closePath();
         this.ctx.restore();
 
-        // Move the ball within canvas bounds
+        //movement
         if (this.x < this.canvas.width - this.playerSize){
           if (this.rightPressed) {
               this.x += 1
@@ -81,43 +81,43 @@ export class Player{
               this.y += 1
           }
         }
-
+        //shooting, pushes info into array everytime a mousedown event occurs
         if(this.mousedown){
                 // Calculate the direction to shoot
                 let shootAngle = Math.atan2(this.mouseY - this.y, this.mouseX - this.x);
                 let speed = 5;
-                // Initialize the projectile with position and velocity
+
                 this.projectiles.push({
                     x: this.x,
                     y: this.y,
-                    dx: Math.cos(shootAngle) * speed,
+                    dx: Math.cos(shootAngle) * speed, // i dont uderstand this yet but it calculates the direction the projectile should move in
                     dy: Math.sin(shootAngle) * speed,
-                    radius: this.playerSize / 2
+                    radius: this.playerSize / 2,
+                    health: 3
                 });
         }
+        //draws all the current projectiles in the array 
         for (let i = 0; i < this.projectiles.length; i++) {
             let p = this.projectiles[i];
-    
-            // Update projectile position
+
             p.x += p.dx;
             p.y += p.dy;
     
-            // Draw the projectile
             this.ctx.beginPath();
             this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
             this.ctx.fillStyle = "#FF0000";
             this.ctx.fill();
             this.ctx.closePath();
     
-            // Remove projectiles that go off-screen
+            // if the projectile goes off the screen it gets deleted
             if (p.x < 0 || p.x > this.canvas.width || p.y < 0 || p.y > this.canvas.height) {
                 this.projectiles.splice(i, 1);
-                i--; // Adjust index after removing element
+                i--; // i-- becuase you remove an element so i will be 1 element ahead if you dont subtract 1 by it
             }
         }
       this.mousedown = false
     }
-
+    //event listener handlers (they just set a value to true if an event occurs. those values are used in the movement script)
     keyDownHandler(e) {
         if (e.key === "d" || e.key === "ArrowRight") {
           this.rightPressed = true;
