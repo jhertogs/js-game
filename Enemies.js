@@ -8,6 +8,7 @@ export class Enemy {
         this.num2 = num2
         this.enemies = enemies
         this.activeEnemies = activeEnemies
+        this.randSize2 = 1
     }
 
 
@@ -46,14 +47,14 @@ export class Enemy {
         if (this.num2 > 50){
             let randx = Math.random() * canvas.width;
             let randy = Math.random() * canvas.height;
-            let randSize2 = Math.random() * 10
+            this.randSize2 = Math.random() * 10
             this.activeEnemies.push({
                 x: randx,
                 y: randy,
-                width: 8 + randSize2,
-                height: 8 + randSize2,
-                speed: 2.2 - randSize2 / 8,
-                health: 1 + randSize2 / 4
+                width: 8 + this.randSize2,
+                height: 8 + this.randSize2,
+                speed: 2.2 - this.randSize2 / 8,
+                health: 1 + this.randSize2 / 4
 
             })
             this.num2 = 0
@@ -70,6 +71,8 @@ export class Enemy {
             this.ctx.fillStyle = "#000000";
             this.ctx.fill();
             this.ctx.closePath();
+
+            
         }
     }
     
