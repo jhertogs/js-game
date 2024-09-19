@@ -61,11 +61,25 @@ export class Player{
         this.ctx.closePath();
         this.ctx.restore();
 
-        this.ctx.beginPath();
-        this.ctx.rect(this.x - this.playerSize, this.y - 20, (this.playerSize * 2)*(this.playerHealth/100), this.playerSize / 4)
-        this.ctx.fillStyle = "#00ff00"
-        this.ctx.fill()
-        this.ctx.closePath()
+        if(this.playerHealth > 0){
+            this.ctx.beginPath();
+            this.ctx.rect(this.x - this.playerSize, this.y - 20, (this.playerSize * 2)*(this.playerHealth/100), this.playerSize / 4)
+        
+            if(this.playerHealth > 65){
+                this.ctx.fillStyle = "#00ff00"
+            
+            }else if(this.playerHealth > 45){
+                this.ctx.fillStyle = "#FFFF00"
+            
+            }else if(this.playerHealth > 30){
+                this.ctx.fillStyle = "#FFA500"
+            }else{
+                this.ctx.fillStyle = "#FF0000"
+            }
+            this.ctx.fill()
+            this.ctx.closePath()
+        }
+           
 
         //movement
         if (this.x < this.canvas.width - this.playerSize){

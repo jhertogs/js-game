@@ -79,7 +79,6 @@ export class Collision {
             if (distance < player.playerSize + Math.max(currentActiveEnem.width, currentActiveEnem.height) /2 ) {
                 // Handle player collision with active enemy
                 player.playerHealth -= 5
-                console.log(player.playerHealth);
                 
                 activeEnemies.splice(k, 1);
                 k--;
