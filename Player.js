@@ -12,7 +12,8 @@ export class Player{
         this.leftPressed = leftPressed;
         this.rightPressed = rightPressed;
         this.mousedown = mousedown;
-        this. projectiles = []
+        this. projectiles = [];
+        this.playerHealth = 100
 
         //bind(this) is becuase in js -this- with evenlisteners refers to the element that triggerd the event not the function itself, bind(this) binds it to itself insead.
         this.keyDownHandler = this.keyDownHandler.bind(this)
@@ -61,7 +62,7 @@ export class Player{
         this.ctx.restore();
 
         this.ctx.beginPath();
-        this.ctx.rect(this.x - this.playerSize , this.y - 20, this.playerSize * 2, this.playerSize / 4)
+        this.ctx.rect(this.x - this.playerSize, this.y - 20, (this.playerSize * 2)*(this.playerHealth/100), this.playerSize / 4)
         this.ctx.fillStyle = "#00ff00"
         this.ctx.fill()
         this.ctx.closePath()
