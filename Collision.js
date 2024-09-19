@@ -16,15 +16,22 @@ export class Collision {
                     currentProj.y - currentProj.radius < currentEnem.y + currentEnem.height
                 ) { 
                     console.log(enemies[j].health);
-                    //if collision is detected subtract health by 1
+                    enemies[j].x += currentProj.dx
+                    enemies[j].y += currentProj.dy
+                    //if collision is detected subtract enemy and projectile health by 1
                     enemies[j].health = enemies[j].health - projDamage
-                    //if health is zero delete the enemy
+
+                    currentProj.bulletHealth--
+                    //if health is zero delete the enemy and increase playersize
                     if(enemies[j].health < 1){
                         enemies.splice(j, 1);
+                        player.playerSize += 0.2;
+                    }
+                    if(currentProj.bulletHealth < 0){
+                       projectiles.splice(i, 1); 
                     }
 
-                    projectiles.splice(i, 1);
-                    player.playerSize += 0.2;  // Increase the ball radius on hit
+                    
                     //console.log( "Col: ", player.playerSize);
                     i--; 
                     break;
