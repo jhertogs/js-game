@@ -60,6 +60,12 @@ export class Player{
         this.ctx.closePath();
         this.ctx.restore();
 
+        this.ctx.beginPath();
+        this.ctx.rect(this.x -5, this.y - 20, this.playerSize, this.playerSize / 4)
+        this.ctx.fillStyle = "#00ff00"
+        this.ctx.fill()
+        this.ctx.closePath()
+
         //movement
         if (this.x < this.canvas.width - this.playerSize){
           if (this.rightPressed) {
