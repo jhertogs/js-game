@@ -1,6 +1,7 @@
 import { Player } from "./Player.js"
 import { Enemy } from "./Enemies.js"
 import { Collision } from "./Collision.js"
+import { Upgrade } from "./upgrade.js"
 
 const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
@@ -23,7 +24,6 @@ let num = 0;
 
 let num2 = 0
 let activeEnemies = []
-//let points = 0
 
 let player  = new Player(
      x,
@@ -46,15 +46,21 @@ let spawnEnemies = new Enemy(
      enemies,
      activeEnemies,
      canvas,
-     ctx
+     ctx,
     )
 
-let collision = new Collision()
+
+let collision = new Collision(ctx, canvas)
+
+let upgrade = new Upgrade(ctx, canvas)
+
 function draw() {
     player.drawPlayer()
     spawnEnemies.spawn()
     spawnEnemies.spawnActiveEnemies(player.x, player.y)
-    collision.collideCheck(player.projectiles, spawnEnemies.enemies, player, spawnEnemies.activeEnemies, player.x, player.y) 
+    collision.collideCheck(player.projectiles, spawnEnemies.enemies, player, spawnEnemies.activeEnemies, player.x, player.y)
+    upgrade.upgradePopUp(collision.points)
+    
 }//i pass player instance as param to change playersize property of Player class in collision class
 function startgame(){
     setInterval(draw, 10)

@@ -1,18 +1,19 @@
 
 export class Collision {
 
-    constructor(){
+    constructor(ctx, canvas){
         this.points = 0
+        this.ctx = ctx
+        this.canvas = canvas
     }
 
         collideCheck(projectiles, enemies, player, activeEnemies, x, y) {
+
         // Check for collisions between projectiles and enemies
         for (let i = 0; i < projectiles.length; i++) {
             let currentProj = projectiles[i];
             let projDamage = currentProj.damage
             for (let j = 0; j < enemies.length; j++) {
-                
-                
                 let currentEnem = enemies[j];
                 if (
                     currentProj.x + currentProj.radius > currentEnem.x &&
@@ -31,18 +32,12 @@ export class Collision {
                     //if health is zero delete the enemy and increase playersize
                     if(enemies[j].health < 1){
                         enemies.splice(j, 1);
-                        player.playerSize += 0.1;
                         this.points += 1
-                        console.log(this.points);
-                        
-                        document.getElementById("points").innerHTML = "Points: " + this.points
-                        
                     }
 
                     if(currentProj.bulletHealth < 0){
                        projectiles.splice(i, 1); 
                     }
-                    //console.log( "Col: ", player.playerSize);
                     i--; 
                     break;
                 }
@@ -67,7 +62,6 @@ export class Collision {
                     if(activeEnemies[n].health < 0){
                         activeEnemies.splice(n, 1);
                         this.points += 2
-                        document.getElementById("points").innerHTML = "Points: " + this.points
 
                     }
                     if (currentProj.bulletHealth < 0){

@@ -9,12 +9,13 @@ export class Enemy {
         this.enemies = enemies
         this.activeEnemies = activeEnemies
         this.randSize2 = 1
+        this.spawnRate = 100
     }
 
 
     makeEnemies() {
         this.num += 1;
-        if (this.num > 200) {
+        if (this.num > this.spawnRate) {
             let randx = Math.random() * canvas.width;
             let randy = Math.random() * canvas.height;
             let randSize = Math.random() * 10
@@ -44,7 +45,7 @@ export class Enemy {
     
     makeActiveEnemies(){
         this.num2 += 1
-        if (this.num2 > 500){
+        if (this.num2 > this.spawnRate * 2){
             let randx = Math.random() * canvas.width;
             let randy = Math.random() * canvas.height;
             this.randSize2 = Math.random() * 10
