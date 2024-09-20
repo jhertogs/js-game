@@ -23,6 +23,7 @@ let num = 0;
 
 let num2 = 0
 let activeEnemies = []
+//let points = 0
 
 let player  = new Player(
      x,
@@ -49,12 +50,11 @@ let spawnEnemies = new Enemy(
     )
 
 let collision = new Collision()
-
 function draw() {
     player.drawPlayer()
     spawnEnemies.spawn()
     spawnEnemies.spawnActiveEnemies(player.x, player.y)
-    collision.collideCheck(player.projectiles, spawnEnemies.enemies, player, spawnEnemies.activeEnemies, player.x, player.y, player.playerHealth) 
+    collision.collideCheck(player.projectiles, spawnEnemies.enemies, player, spawnEnemies.activeEnemies, player.x, player.y) 
 }//i pass player instance as param to change playersize property of Player class in collision class
 function startgame(){
     setInterval(draw, 10)

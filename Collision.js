@@ -1,12 +1,11 @@
 
 export class Collision {
-        constructor(points){
-            this.points = points
-            
-        }
 
-        collideCheck(projectiles, enemies, player, activeEnemies, x, y, points) {
-            
+    constructor(){
+        this.points = 0
+    }
+
+        collideCheck(projectiles, enemies, player, activeEnemies, x, y) {
         // Check for collisions between projectiles and enemies
         for (let i = 0; i < projectiles.length; i++) {
             let currentProj = projectiles[i];
@@ -33,8 +32,10 @@ export class Collision {
                     if(enemies[j].health < 1){
                         enemies.splice(j, 1);
                         player.playerSize += 0.1;
-                        points += 1
-                        console.log(points);
+                        this.points += 1
+                        console.log(this.points);
+                        
+                        document.getElementById("points").innerHTML = "Points: " + this.points
                         
                     }
 
@@ -65,7 +66,8 @@ export class Collision {
 
                     if(activeEnemies[n].health < 0){
                         activeEnemies.splice(n, 1);
-                        points += 2
+                        this.points += 2
+                        document.getElementById("points").innerHTML = "Points: " + this.points
 
                     }
                     if (currentProj.bulletHealth < 0){
