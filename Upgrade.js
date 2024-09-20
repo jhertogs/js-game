@@ -6,27 +6,27 @@ export class Upgrade{
         this.canvasLeft = canvas.offsetLeft
         this.canvasTop = canvas.offsetTop
         this.enoughPts = false
+        this.clickedUpgradeBtn = false
+        this.canvas.addEventListener('click', (e) => this.handleClick(e));
+
     }
+
+    handleClick(e) {
+        if (!this.enoughPts) return; 
+        let x = e.pageX - this.canvasLeft;
+        let y = e.pageY - this.canvasTop;
+
+        // Check if click is inside the blue rectangle (upgrade button)
+        if (y > 40 && y < 40 + 30 && x > 190 && x < 190 + 50 && this.clickedUpgradeBtn == false) {
+            this.clickedUpgradeBtn = true
+            alert('Clicked the upgrade button!');
+            // Perform your upgrade action here
+        }
+    }
+
 
     upgradePopUp(points){
 
-        this.canvas.addEventListener('click', (e) => {
-
-            let x = e.pageX - this.canvasLeft
-            let y = e.pageY - this.canvasTop
-            //this.ctx.rect(190, 40, 50, 30)
-            //x y width height
-
-            //y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width
-            // y y height x x widht
-
-            if (y > 40 && y < 40 + 30 && x > 190 && x < 190 + 50 && this.enoughPts == true) {
-                alert('clicked an element');
-            }
-        })
-
-        
-        
         //console.log("upgrades", points);
         
         this.ctx.beginPath()
@@ -35,7 +35,7 @@ export class Upgrade{
         this.ctx.fillText("Score: " + points,190,20);
         this.ctx.closePath();
         
-        if(points > 5){
+        if(points > 5 && this.clickedUpgradeBtn == false){
             this.enoughPts = true
             
             this.ctx.beginPath()
