@@ -17,6 +17,11 @@ export class Upgrade{
         
         if(points > 50){
             
+            this.ctx.beginPath()
+            this.ctx.rect(190, 40, 50, 30)
+            this.ctx.fillStyle = "#00FFFF"
+            this.ctx.fill()
+            this.ctx.closePath()
             
         }
     }
