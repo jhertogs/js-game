@@ -52,14 +52,14 @@ let spawnEnemies = new Enemy(
 
 let collision = new Collision(ctx, canvas)
 
-let upgrade = new Upgrade(ctx, canvas)
+let upgrade = new Upgrade(ctx, canvas, 100, 50)
 
 function draw() {
     player.drawPlayer()
     spawnEnemies.spawn()
     spawnEnemies.spawnActiveEnemies(player.x, player.y)
     collision.collideCheck(player.projectiles, spawnEnemies.enemies, player, spawnEnemies.activeEnemies, player.x, player.y)
-    upgrade.upgradePopUp(collision.points)
+    upgrade.upgradePopUp(collision.points, 100, 50)
     
 }//i pass player instance as param to change playersize property of Player class in collision class
 function startgame(){

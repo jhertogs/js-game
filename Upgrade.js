@@ -1,6 +1,8 @@
 
 export class Upgrade{
-    constructor(ctx, canvas){
+    constructor(ctx, canvas, boxWidth, boxHeight){
+        this.boxHeight = boxHeight
+        this.boxWidth = boxWidth
         this.ctx = ctx
         this.canvas = canvas
         this.canvasLeft = canvas.offsetLeft
@@ -17,7 +19,7 @@ export class Upgrade{
         let y = e.pageY - this.canvasTop;
 
         // Check if click is inside the blue rectangle (upgrade button)
-        if (y > 40 && y < 40 + 30 && x > 190 && x < 190 + 50 && this.clickedUpgradeBtn == false) {
+        if (y > 40 && y < 40 + this.boxHeight && x > 190 && x < 190 + this.boxWidth && this.clickedUpgradeBtn == false) {
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
             // Perform your upgrade action here
@@ -39,7 +41,8 @@ export class Upgrade{
             this.enoughPts = true
             
             this.ctx.beginPath()
-            this.ctx.rect(190, 40, 50, 30)
+            this.ctx.rect(190, 40, this.boxWidth, this.boxHeight)
+            //w: 50 H: 30
             this.ctx.fillStyle = "#00FFFF"
             this.ctx.fill()
             this.ctx.closePath()
