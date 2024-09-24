@@ -21,7 +21,7 @@ export class Upgrade{
         let y = e.pageY - this.canvasTop;
 
         // Check if click is inside the blue rectangle (upgrade button)
-        if (y > this.boxY && y < this.boxY + this.boxHeight && x > this.boxXthis && x < this.boxXthis + this.boxWidth && this.clickedUpgradeBtn == false) {
+        if (y > this.boxY && y < this.boxY + this.boxHeight && x > this.boxX && x < this.boxX + this.boxWidth && this.clickedUpgradeBtn == false) {
             //y: 40 x: 190
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
@@ -30,31 +30,28 @@ export class Upgrade{
     }
 
 
-    upgradePopUp(points, btnAmount){
+    upgradePopUp(points){
         this.ctx.beginPath()
         this.ctx.font="16px Verdana";
         this.ctx.fillStyle = "#000000"
         this.ctx.fillText("Score: " + points,190,20);
         this.ctx.closePath();
 
-        for (let i = 0; i < btnAmount; i++){
-
-                if(points > 5 && this.clickedUpgradeBtn == false){
-
-                    this.enoughPts = true
-                    
-                    this.ctx.beginPath()
-                    this.ctx.rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight)
-                    //w: 50 H: 30
-                    this.ctx.fillStyle = "#00FFFF"
-                    this.ctx.fill()
-                    this.ctx.closePath()
-                
+        if(points > 5 && this.clickedUpgradeBtn == false){
+            for(let i =0; i <3; i++ ){
+                this.enoughPts = true
+            
+                this.ctx.beginPath()
+                this.ctx.rect(this.boxX * (i + 1), this.boxY, this.boxWidth, this.boxHeight)
+                //w: 50 H: 30
+                this.ctx.fillStyle = "#00FFFF"
+                this.ctx.fill()
+                this.ctx.closePath() 
             }
+            
+            
         }
-        
-        
-        
+
     }
 
 }
