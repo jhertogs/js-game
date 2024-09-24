@@ -1,6 +1,8 @@
 
 export class Upgrade{
-    constructor(ctx, canvas, boxWidth, boxHeight){
+    constructor(ctx, canvas, boxWidth, boxHeight, boxX, boxY){
+        this.boxX = boxX
+        this.boxY = boxY
         this.boxHeight = boxHeight
         this.boxWidth = boxWidth
         this.ctx = ctx
@@ -19,7 +21,8 @@ export class Upgrade{
         let y = e.pageY - this.canvasTop;
 
         // Check if click is inside the blue rectangle (upgrade button)
-        if (y > 40 && y < 40 + this.boxHeight && x > 190 && x < 190 + this.boxWidth && this.clickedUpgradeBtn == false) {
+        if (y > this.boxY && y < this.boxY + this.boxHeight && x > this.boxXthis && x < this.boxXthis + this.boxWidth && this.clickedUpgradeBtn == false) {
+            //y: 40 x: 190
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
             // Perform your upgrade action here
@@ -27,27 +30,31 @@ export class Upgrade{
     }
 
 
-    upgradePopUp(points){
-
-        //console.log("upgrades", points);
-        
+    upgradePopUp(points, btnAmount){
         this.ctx.beginPath()
         this.ctx.font="16px Verdana";
         this.ctx.fillStyle = "#000000"
         this.ctx.fillText("Score: " + points,190,20);
         this.ctx.closePath();
-        
-        if(points > 5 && this.clickedUpgradeBtn == false){
-            this.enoughPts = true
-            
-            this.ctx.beginPath()
-            this.ctx.rect(190, 40, this.boxWidth, this.boxHeight)
-            //w: 50 H: 30
-            this.ctx.fillStyle = "#00FFFF"
-            this.ctx.fill()
-            this.ctx.closePath()
-            
+
+        for (let i = 0; i < btnAmount; i++){
+
+                if(points > 5 && this.clickedUpgradeBtn == false){
+
+                    this.enoughPts = true
+                    
+                    this.ctx.beginPath()
+                    this.ctx.rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight)
+                    //w: 50 H: 30
+                    this.ctx.fillStyle = "#00FFFF"
+                    this.ctx.fill()
+                    this.ctx.closePath()
+                
+            }
         }
+        
+        
+        
     }
 
 }
