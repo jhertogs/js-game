@@ -38,20 +38,16 @@ export class Upgrade{
         this.ctx.closePath();
 
         if(points > 5 && this.clickedUpgradeBtn == false){
-            for(let i =0; i <3; i++ ){
                 this.enoughPts = true
             
                 this.ctx.beginPath()
-                this.ctx.rect(this.boxX * (i + 1), this.boxY, this.boxWidth, this.boxHeight)
+                this.ctx.rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight)
                 //w: 50 H: 30
                 this.ctx.fillStyle = "#00FFFF"
                 this.ctx.fill()
-                this.ctx.closePath() 
+                this.ctx.closePath()
             }
-            
-            
-        }
-
+                       
     }
 
 }

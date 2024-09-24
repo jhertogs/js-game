@@ -52,7 +52,7 @@ let spawnEnemies = new Enemy(
 
 let collision = new Collision(ctx, canvas)
 
-let upgrade = new Upgrade(ctx, canvas, 100, 60, 190, 40)
+let upgrade = new Upgrade(ctx, canvas, 100, 60, 10, 40)
 
 function draw() {
     player.drawPlayer()
