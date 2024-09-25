@@ -23,11 +23,39 @@ export class Upgrade{
         let y = e.pageY - this.canvasTop;
 
         // Check if click is inside the blue rectangle (upgrade button)
-        if (y > this.boxY && y < this.boxY + this.boxHeight && x > this.boxX && x < this.boxX + this.boxWidth && this.clickedUpgradeBtn == false) {
+        if (
+            y > this.boxY 
+            && y < this.boxY + this.boxHeight 
+            && x > this.boxX 
+            && x < this.boxX + this.boxWidth 
+            && this.clickedUpgradeBtn == false
+        ) {
             //y: 40 x: 190
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
             // Perform your upgrade action here
+        }
+
+        if (
+            y > this.boxY
+            && y < this.boxY + this.boxHeight
+            && x > this.boxX2
+            && x < this.boxX2 + this.boxWidth
+            && this.clickedUpgradeBtn == false
+        ){
+            this.clickedUpgradeBtn = true
+            alert('Clicked the upgrade button!');
+        }
+
+        if (
+            y > this.boxY
+            && y < this.boxY + this.boxHeight
+            && x > this.boxX3
+            && x < this.boxX3 + this.boxWidth
+            && this.clickedUpgradeBtn == false
+        ){
+            this.clickedUpgradeBtn = true
+            alert('Clicked the upgrade button!');
         }
     }
 
