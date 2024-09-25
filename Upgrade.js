@@ -20,9 +20,9 @@ export class Upgrade{
         this.pointsToUpgrade = pointsToUpgrade
 
         this.upgrades = {
-            1: () => {this.player.playerSize += 5},
-            2: () => {console.log("2")},
-            3: () => {console.log("3")},
+            1: () => {this.player.playerSize += 5, console.log("+5 size");},
+            2: () => {this.player.playerHealth += 10, console.log("+10 health");},
+            3: () => {this.player.projectiles.damage += 0.5, console.log("+0.5 damage");},
             4: () => {console.log("4")},
             5: () => {console.log("5")},
             6: () => {console.log("6")},
@@ -63,6 +63,8 @@ export class Upgrade{
         ){
             this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
+            let randnum = Math.floor((Math.random() * 10)) + 1
+            this.upgrades[randnum]()
             alert('Clicked the upgrade button!');
         }
 
@@ -75,6 +77,8 @@ export class Upgrade{
         ){
             this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
+            let randnum = Math.floor((Math.random() * 10)) + 1
+            this.upgrades[randnum]()
             alert('Clicked the upgrade button!');
         }
     }
