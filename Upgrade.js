@@ -1,6 +1,7 @@
+import { Player } from "./Player"
 
 export class Upgrade{
-    constructor(ctx, canvas, boxWidth, boxHeight, boxX, boxY){
+    constructor(ctx, canvas, boxWidth, boxHeight, boxX, boxY, player, collision, pointsToUpgrade){
         this.boxX = boxX
         this.boxX2 = 0
         this.boxX3 = 0
@@ -14,7 +15,22 @@ export class Upgrade{
         this.enoughPts = false
         this.clickedUpgradeBtn = false
         this.canvas.addEventListener('click', (e) => this.handleClick(e));
+        this.player = player
+        this.collision = collision
+        this.pointsToUpgrade = pointsToUpgrade
 
+        this.upgrades = {
+            1: () => {this.player.playerSize += 5},
+            2: () => {console.log("2")},
+            3: () => {console.log("3")},
+            4: () => {console.log("4")},
+            5: () => {console.log("5")},
+            6: () => {console.log("6")},
+            7: () => {console.log("7")},
+            8: () => {console.log("8")},
+            9: () => {console.log("9")},
+            10: () => {console.log("10")},
+        }
     }
 
     handleClick(e) {
@@ -31,9 +47,11 @@ export class Upgrade{
             && this.clickedUpgradeBtn == false
         ) {
             //y: 40 x: 190
+            this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
-            alert('Clicked the upgrade button!');
-            // Perform your upgrade action here
+            let randnum = Math.floor((Math.random() * 10)) + 1
+            this.upgrades[randnum]()
+            alert('clicked the upgrade button!')
         }
 
         if (
@@ -43,6 +61,7 @@ export class Upgrade{
             && x < this.boxX2 + this.boxWidth
             && this.clickedUpgradeBtn == false
         ){
+            this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
         }
@@ -54,20 +73,22 @@ export class Upgrade{
             && x < this.boxX3 + this.boxWidth
             && this.clickedUpgradeBtn == false
         ){
+            this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
         }
+        this.clickedUpgradeBtn = false
     }
 
 
-    upgradePopUp(points){
+    upgradePopUp(){
         this.ctx.beginPath()
         this.ctx.font="16px Verdana";
         this.ctx.fillStyle = "#000000"
-        this.ctx.fillText("Score: " + points,190,20);
+        this.ctx.fillText("Score: " + this.collision.points, 190,20);
         this.ctx.closePath();
 
-        if(points > 5 && this.clickedUpgradeBtn == false){
+        if(this.collision.points >= this.pointsToUpgrade && this.clickedUpgradeBtn == false){
                 this.enoughPts = true
             
                 this.ctx.beginPath()
@@ -76,8 +97,6 @@ export class Upgrade{
                 this.ctx.fillStyle = "#00FFFF"
                 this.ctx.fill()
                 this.ctx.closePath()
-
-                this.enoughPts = true
 
                 //box 2
 
@@ -93,8 +112,6 @@ export class Upgrade{
                 //box 3
 
                 this.boxX3 = (this.boxX2 + this.boxWidth) + 10
-
-                this.enoughPts = true
             
                 this.ctx.beginPath()
                 this.ctx.rect(this.boxX3, this.boxY, this.boxWidth, this.boxHeight)
