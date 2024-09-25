@@ -77,7 +77,6 @@ export class Upgrade{
             this.clickedUpgradeBtn = true
             alert('Clicked the upgrade button!');
         }
-        this.clickedUpgradeBtn = false
     }
 
 
@@ -88,7 +87,8 @@ export class Upgrade{
         this.ctx.fillText("Score: " + this.collision.points, 190,20);
         this.ctx.closePath();
 
-        if(this.collision.points >= this.pointsToUpgrade && this.clickedUpgradeBtn == false){
+        if(this.collision.points >= this.pointsToUpgrade){
+                this.clickedUpgradeBtn = false
                 this.enoughPts = true
             
                 this.ctx.beginPath()
