@@ -20,11 +20,11 @@ export class Upgrade{
         this.pointsToUpgrade = pointsToUpgrade
 
         this.upgrades = {
-            1: () => {this.player.playerSize += 5, console.log("+5 size");},
-            2: () => {this.player.playerHealth += 10, console.log("+10 health");},
-            3: () => {this.player.projectiles.damage += 0.5, console.log("+0.5 damage");},
-            4: () => {console.log("4")},
-            5: () => {console.log("5")},
+            1: () => {this.player.playerSize += 5, console.log("size: ",this.player.playerSize);},
+            2: () => {this.player.playerHealth += 10, console.log("health: ",this.player.playerHealth);},
+            3: () => {this.player.damageUp += 0.5, console.log("damage:",this.player.damageUp);},
+            4: () => {this.player.bulletHealthUp += 0.2, console.log("bulletHeath: ",this.player.bulletHealthUp);},
+            5: () => {this.player.speed += 0.5, console.log("bulletspeed: ", this.player.speed);},
             6: () => {console.log("6")},
             7: () => {console.log("7")},
             8: () => {console.log("8")},
@@ -49,7 +49,7 @@ export class Upgrade{
             //y: 40 x: 190
             this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
-            let randnum = Math.floor((Math.random() * 10)) + 1
+            let randnum = Math.floor((Math.random() * 5)) + 1
             this.upgrades[randnum]()
             alert('clicked the upgrade button!')
         }
@@ -63,7 +63,7 @@ export class Upgrade{
         ){
             this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
-            let randnum = Math.floor((Math.random() * 10)) + 1
+            let randnum = Math.floor((Math.random() * 5)) + 1
             this.upgrades[randnum]()
             alert('Clicked the upgrade button!');
         }
@@ -77,7 +77,7 @@ export class Upgrade{
         ){
             this.collision.points -= this.pointsToUpgrade
             this.clickedUpgradeBtn = true
-            let randnum = Math.floor((Math.random() * 10)) + 1
+            let randnum = Math.floor((Math.random() * 5)) + 1
             this.upgrades[randnum]()
             alert('Clicked the upgrade button!');
         }

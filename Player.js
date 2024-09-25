@@ -13,7 +13,10 @@ export class Player{
         this.rightPressed = rightPressed;
         this.mousedown = mousedown;
         this. projectiles = [];
-        this.playerHealth = 50
+        this.playerHealth = 100
+        this.speed = 5
+        this.damageUp = 0
+        this.bulletHealthUp = 0
 
         //bind(this) is becuase in js -this- with evenlisteners refers to the element that triggerd the event not the function itself, bind(this) binds it to itself insead.
         this.keyDownHandler = this.keyDownHandler.bind(this)
@@ -106,16 +109,17 @@ export class Player{
         if(this.mousedown){
                 // Calculate the direction to shoot
                 let shootAngle = Math.atan2(this.mouseY - this.y, this.mouseX - this.x);
-                let speed = 5;
+                let newDamage = this.damageUp
+                let newBulletHealth  = this.bulletHealthUp
 
                 this.projectiles.push({
                     x: this.x,
                     y: this.y,
-                    dx: Math.cos(shootAngle) * speed, // i dont uderstand this yet but it calculates the direction the projectile should move in
-                    dy: Math.sin(shootAngle) * speed,
+                    dx: Math.cos(shootAngle) * this.speed, // i dont uderstand this yet but it calculates the direction the projectile should move in
+                    dy: Math.sin(shootAngle) * this.speed,
                     radius: this.playerSize / 2,
-                    damage: 0.5,
-                    bulletHealth: 2
+                    damage: 0.5 + newDamage,
+                    bulletHealth: 2 + newBulletHealth
                 });
         }
         //draws all the current projectiles in the array 
