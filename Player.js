@@ -104,6 +104,7 @@ export class Player{
         }
         //shooting, pushes info into array everytime a mousedown event occurs
         if(this.mousedown){
+                console.log(this.mouseX, this.mouseY);
                 // Calculate the direction to shoot
                 let shootAngle = Math.atan2(this.mouseY - this.y, this.mouseX - this.x);
                 let speed = 5;

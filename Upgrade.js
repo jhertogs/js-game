@@ -2,6 +2,8 @@
 export class Upgrade{
     constructor(ctx, canvas, boxWidth, boxHeight, boxX, boxY){
         this.boxX = boxX
+        this.boxX2 = 0
+        this.boxX3 = 0
         this.boxY = boxY
         this.boxHeight = boxHeight
         this.boxWidth = boxWidth
@@ -42,6 +44,32 @@ export class Upgrade{
             
                 this.ctx.beginPath()
                 this.ctx.rect(this.boxX, this.boxY, this.boxWidth, this.boxHeight)
+                //w: 50 H: 30
+                this.ctx.fillStyle = "#00FFFF"
+                this.ctx.fill()
+                this.ctx.closePath()
+
+                this.enoughPts = true
+
+                //box 2
+
+                this.boxX2 = (this.boxX + this.boxWidth) + 10
+
+                this.ctx.beginPath()
+                this.ctx.rect(this.boxX2, this.boxY, this.boxWidth, this.boxHeight)
+                //w: 50 H: 30
+                this.ctx.fillStyle = "#00FFFF"
+                this.ctx.fill()
+                this.ctx.closePath()
+
+                //box 3
+
+                this.boxX3 = (this.boxX2 + this.boxWidth) + 10
+
+                this.enoughPts = true
+            
+                this.ctx.beginPath()
+                this.ctx.rect(this.boxX3, this.boxY, this.boxWidth, this.boxHeight)
                 //w: 50 H: 30
                 this.ctx.fillStyle = "#00FFFF"
                 this.ctx.fill()
