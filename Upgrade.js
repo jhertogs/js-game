@@ -124,7 +124,6 @@ export class Upgrade{
                 this.ctx.fill()
                 this.ctx.closePath()
             }
-                       
     }
 
 }
