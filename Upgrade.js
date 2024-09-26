@@ -18,13 +18,14 @@ export class Upgrade{
         this.player = player
         this.collision = collision
         this.pointsToUpgrade = pointsToUpgrade
+        this.Title = ""
 
         this.upgrades = {
-            1: () => {this.player.playerSize += 5, console.log("size: ",this.player.playerSize);},
-            2: () => {this.player.playerHealth += 10, console.log("health: ",this.player.playerHealth);},
-            3: () => {this.player.damageUp += 0.5, console.log("damage:",this.player.damageUp);},
-            4: () => {this.player.bulletHealthUp += 0.2, console.log("bulletHeath: ",this.player.bulletHealthUp);},
-            5: () => {this.player.speed += 0.5, console.log("bulletspeed: ", this.player.speed);},
+            1: () => {this.player.playerSize += 5, this.Title = "Increase your size!"},
+            2: () => {this.player.playerHealth += 10, this.Title = "Increase your health"},
+            3: () => {this.player.damageUp += 0.5, this.Title = "Increase your damage"},
+            4: () => {this.player.bulletHealthUp += 0.2, this.Title = "Increase your bullets health"},
+            5: () => {this.player.speed += 0.5, this.Title = "Increase your speed"},
             6: () => {console.log("6")},
             7: () => {console.log("7")},
             8: () => {console.log("8")},
@@ -51,7 +52,7 @@ export class Upgrade{
             this.clickedUpgradeBtn = true
             let randnum = Math.floor((Math.random() * 5)) + 1
             this.upgrades[randnum]()
-            alert('clicked the upgrade button!')
+            alert(this.Title)
         }
 
         if (
@@ -101,7 +102,6 @@ export class Upgrade{
                 this.ctx.fillStyle = "#00FFFF"
                 this.ctx.fill()
                 this.ctx.closePath()
-
                 //box 2
 
                 this.boxX2 = (this.boxX + this.boxWidth) + 10
